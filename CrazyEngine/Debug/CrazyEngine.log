@@ -1,0 +1,21 @@
+﻿  Test.cpp
+d:\gitprojects\crazyengine\engine\camera3d.h(30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  SpriteTest.cpp
+  SecondTest.cpp
+d:\gitprojects\crazyengine\crazyengine\secondtest.cpp(113): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+  MeshTest.cpp
+d:\gitprojects\crazyengine\engine\camera3d.h(30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\gitprojects\crazyengine\crazyengine\meshtest.cpp(12): error C2664: 'GameObject::GameObject(const GameObject &)': cannot convert argument 1 from 'Texture *' to 'Mesh *'
+  d:\gitprojects\crazyengine\crazyengine\meshtest.cpp(12): note: Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+d:\gitprojects\crazyengine\crazyengine\meshtest.cpp(30): error C2039: 'initMesh': is not a member of 'GameObject'
+  d:\gitprojects\crazyengine\engine\gameobject.h(15): note: see declaration of 'GameObject'
+d:\gitprojects\crazyengine\crazyengine\meshtest.cpp(46): error C2039: 'getXaxis': is not a member of 'GameObject'
+  d:\gitprojects\crazyengine\engine\gameobject.h(15): note: see declaration of 'GameObject'
+d:\gitprojects\crazyengine\crazyengine\meshtest.cpp(58): error C2660: 'Camera3D::update': function does not take 1 arguments
+  Main.cpp
+  FirstTest.cpp
+d:\gitprojects\crazyengine\crazyengine\firsttest.cpp(97): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
+  CameraTest.cpp
+d:\gitprojects\crazyengine\engine\camera3d.h(30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+d:\gitprojects\crazyengine\crazyengine\cameratest.cpp(37): error C2660: 'Camera3D::update': function does not take 1 arguments
+  Generating Code...
