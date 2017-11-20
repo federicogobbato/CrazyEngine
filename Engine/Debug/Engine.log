@@ -1,26 +1,7 @@
-﻿  Window.cpp
-c:\users\feder\desktop\crazyengine\engine\window.cpp(44): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
-c:\users\feder\desktop\crazyengine\engine\window.cpp(46): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
-c:\users\feder\desktop\crazyengine\engine\window.cpp(64): warning C4244: 'argument': conversion from 'Sint32' to 'float', possible loss of data
-  TextureCache.cpp
-  Texture.cpp
-  Sprite.cpp
-  Mesh.cpp
-  InputManager.cpp
-  GameObject.cpp
-  GOmanager.cpp
-c:\users\feder\desktop\crazyengine\engine\gomanager.cpp(38): warning C4018: '<': signed/unsigned mismatch
-c:\users\feder\desktop\crazyengine\engine\gomanager.cpp(46): warning C4018: '<': signed/unsigned mismatch
-  GLSLProgram.cpp
-  Cube.cpp
-  Core.cpp
-  Camera3D.cpp
-c:\users\feder\desktop\crazyengine\engine\camera3d.h(30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
-  Generating Code...
-SDL2_ttf.lib(SDL2_ttf.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
+﻿SDL2_ttf.lib(SDL2_ttf.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
 SDL2_ttf.lib(SDL2_ttf.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 opengl32.lib(OPENGL32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
 opengl32.lib(OPENGL32.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 glew32.lib(glew32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
 glew32.lib(glew32.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
-  Engine.vcxproj -> C:\Users\feder\Desktop\CrazyEngine\Debug\Engine.lib
+  Engine.vcxproj -> D:\GitProject\CrazyEngine\Debug\Engine.lib

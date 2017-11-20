@@ -3,34 +3,38 @@
 #include <string>
 #include <glew.h>
 
+namespace Engine {
 
-enum fileExtension {
-	JPG,
-	PBM
-};
+    enum fileExtension {
+        PNG,
+        JPG,
+        PBM
+    };
 
-struct Texel {
-    char r, g, b, a;
-};
+    struct Texel {
+        char r, g, b, a;
+    };
 
-class Texture
-{
-    GLuint m_ID;
-    int m_Width;
-    int m_Height;
+    class Texture
+    {
+        GLuint m_ID;
+        int m_Width;
+        int m_Height;
 
-    void loadPGMTexture(const std::string& texturePath);
-	void loadJPGTexture(const std::string& texturePath);
+        void loadPNGTexture(const std::string& texturePath);
+        void loadPGMTexture(const std::string& texturePath);
+        void loadJPGTexture(const std::string& texturePath);
 
-public:
+    public:
 
-    GLuint getID() const {
-        return m_ID;
-    }
+        GLuint getID() const {
+            return m_ID;
+        }
 
-    Texture();
-    ~Texture();
+        Texture();
+        ~Texture();
 
-    void loadData(const std::string& texturePath, fileExtension flag);
-};
+        void loadData(const std::string& texturePath, fileExtension flag);
+    };
 
+}

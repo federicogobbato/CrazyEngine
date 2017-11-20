@@ -6,52 +6,55 @@
 #include "TextureCache.h"
 #include "Texture.h"
 
-struct VertexMesh {
-    glm::vec3 pos;
-    glm::vec3 norm;
-    glm::vec2 uv;
-};
+namespace Engine {
 
-struct Triangle {
-    int i, j, k;
-    Triangle(int _i, int _j, int _k) :i(_i), j(_j), k(_k) {}
-};
+    struct VertexMesh {
+        glm::vec3 pos;
+        glm::vec3 norm;
+        glm::vec2 uv;
+    };
 
-class Mesh
-{
-    std::vector<VertexMesh> m_Vertices;
-    std::vector<Triangle> m_Triangles;
+    struct Triangle {
+        int i, j, k;
+        Triangle(int _i, int _j, int _k) :i(_i), j(_j), k(_k) {}
+    };
 
-    GLuint m_VBO; //Vertex Buffer Object
-    GLuint m_VAO; //Vertex Array Object
-    GLuint m_EBO; //Element array
+    class Mesh
+    {
+        std::vector<VertexMesh> m_Vertices;
+        std::vector<Triangle> m_Triangles;
 
-    Texture* m_Texture;
+        GLuint m_VBO; //Vertex Buffer Object
+        GLuint m_VAO; //Vertex Array Object
+        GLuint m_EBO; //Element array
 
-    int m_nElements;
+        Texture* m_Texture;
 
-	glm::vec3 m_MaxSize;
+        int m_nElements;
 
-public:
-    Mesh();
-    Mesh(Texture* texture);
-    ~Mesh();
+        glm::vec3 m_MaxSize;
 
-	void setTexture(Texture* texture)
-	{
-		m_Texture = texture;
-	}
+    public:
+        Mesh();
+        Mesh(Texture* texture);
+        ~Mesh();
 
-	glm::vec3 getMaxSize() {
-		return m_MaxSize;
-	}
+        void setTexture(Texture* texture)
+        {
+            m_Texture = texture;
+        }
 
-    bool loadMesh(const char* path);
+        glm::vec3 getMaxSize() {
+            return m_MaxSize;
+        }
 
-    void loadGPUMesh(Engine::GLSLProgram* shaderProgram);
+        bool loadMesh(const char* path);
 
-    void drawMesh();
+        void loadGPUMesh(Engine::GLSLProgram* shaderProgram);
 
-	void findMaxSize(float &x, float &y, float &z);
-};
+        void drawMesh();
 
+        void findMaxSize(float &x, float &y, float &z);
+    };
+
+}

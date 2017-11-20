@@ -2,17 +2,21 @@
 #include <map>
 #include "Texture.h"
 
+namespace Engine {
 
-class TextureCache
-{
-	static TextureCache* m_TextureCache;
+    class TextureCache
+    {
+        static TextureCache* m_TextureCache;
 
-	std::map<std::string, Texture*> m_TextureMap;
+        std::map<std::string, Texture*> m_TextureMap;
 
-	TextureCache();
+        TextureCache();
 
-public:
-    ~TextureCache();
-	static TextureCache* getTextureCache();
-    Texture* getTexture(std::string texturePath, fileExtension flag = JPG);
-};
+    public:
+        ~TextureCache();
+        static TextureCache* getTextureCache();
+        Texture* getTexture(std::string texturePath, fileExtension flag);
+    };
+
+
+}

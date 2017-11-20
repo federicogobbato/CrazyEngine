@@ -137,31 +137,43 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
+    <ClInclude Include="Collider2D.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Cube.h" />
+    <ClInclude Include="ExtraFunction.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameObject2D.h" />
     <ClInclude Include="GLSLProgram.h" />
     <ClInclude Include="GOmanager.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="picoPNG.h" />
     <ClInclude Include="Pool.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCache.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
+    <ClCompile Include="Collider2D.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Cube.cpp" />
+    <ClCompile Include="ExtraFunction.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GLSLProgram.cpp" />
     <ClCompile Include="GOmanager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="picoPNG.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="SpriteBatch.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCache.cpp" />
     <ClCompile Include="Window.cpp" />

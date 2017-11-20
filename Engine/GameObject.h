@@ -7,108 +7,112 @@
 
 #include <glm.hpp>
  
-enum GameObjectState {
-	CUBE, MESH
-};
+namespace Engine {
 
-class GameObject
-{
+    enum GameObjectState {
+        CUBE, MESH
+    };
 
-protected:
+    class GameObject
+    {
 
-	Mesh* m_Mesh;
+    protected:
 
-	Cube* m_Cube;
+        Mesh* m_Mesh;
 
-	glm::mat4 m_ModelMatrix;
-	glm::mat4 m_TranslationMatrix;
-	glm::mat4 m_RotationMatrix;
-	glm::mat4 m_ScaleMatrix;
-	glm::mat4 m_TempRotationMatrix;
+        Cube* m_Cube;
 
-	glm::vec3 m_Position;
-	glm::vec3 m_Rotation;
-	glm::vec3 m_Scale;
-	glm::vec3 m_TempRotation;
+        glm::mat4 m_ModelMatrix;
+        glm::mat4 m_TranslationMatrix;
+        glm::mat4 m_RotationMatrix;
+        glm::mat4 m_ScaleMatrix;
+        glm::mat4 m_TempRotationMatrix;
 
-	bool m_ModelMatrixNeedUpdate;
-	bool m_State;
+        glm::vec3 m_Position;
+        glm::vec3 m_Rotation;
+        glm::vec3 m_Scale;
+        glm::vec3 m_TempRotation;
 
-	glm::vec3 m_MaxColliderSize;
+        bool m_ModelMatrixNeedUpdate;
+        bool m_State;
 
-	int m_ID;
+        glm::vec3 m_MaxColliderSize;
 
-public:
+        int m_ID;
 
-	void setPosition(glm::vec3 position);
-	void move(glm::vec3 position);
-	void setRotation(glm::vec3 rotation);
-	void setRotation(glm::vec3 axis, float rotation);
-	void setScale(glm::vec3 scale);
+    public:
 
-	void setTempRotation(glm::vec3 axis, float rotation);
+        void setPosition(glm::vec3 position);
+        void move(glm::vec3 position);
+        void setRotation(glm::vec3 rotation);
+        void setRotation(glm::vec3 axis, float rotation);
+        void setScale(glm::vec3 scale);
 
-	glm::vec3 getPosition() {
-		return m_Position;
-	}
+        void setTempRotation(glm::vec3 axis, float rotation);
 
-	glm::mat4 getRotationMatrix() {
-		return m_RotationMatrix;
-	}
+        glm::vec3 getPosition() {
+            return m_Position;
+        }
 
-	glm::vec3 getRotation() {
-		glm::vec4 rotation = glm::vec4(m_Rotation, 0.0f) * glm::inverse(m_RotationMatrix);
-		return glm::vec3((int)rotation.x % 360, (int)rotation.y % 360, (int)rotation.z % 360);
-	}
+        glm::mat4 getRotationMatrix() {
+            return m_RotationMatrix;
+        }
 
-	glm::vec3 getTempRotation() {
-		return glm::vec3((int)m_TempRotation.x % 360, (int)m_TempRotation.y % 360, (int)m_TempRotation.z % 360);
-	}
+        glm::vec3 getRotation() {
+            glm::vec4 rotation = glm::vec4(m_Rotation, 0.0f) * glm::inverse(m_RotationMatrix);
+            return glm::vec3((int)rotation.x % 360, (int)rotation.y % 360, (int)rotation.z % 360);
+        }
 
-	glm::vec3 getScale() {
-		return m_Scale;
-	}
+        glm::vec3 getTempRotation() {
+            return glm::vec3((int)m_TempRotation.x % 360, (int)m_TempRotation.y % 360, (int)m_TempRotation.z % 360);
+        }
 
-	void resetTempRotation() {
-		if (m_TempRotation != glm::vec3()) {
-			m_TempRotation = glm::vec3();
-			m_TempRotationMatrix = glm::mat4();
-			m_ModelMatrixNeedUpdate = true;
-		}
-	}
+        glm::vec3 getScale() {
+            return m_Scale;
+        }
 
-	void activateGameObject(bool state) {
-		m_State = state;
-	}
+        void resetTempRotation() {
+            if (m_TempRotation != glm::vec3()) {
+                m_TempRotation = glm::vec3();
+                m_TempRotationMatrix = glm::mat4();
+                m_ModelMatrixNeedUpdate = true;
+            }
+        }
 
-	bool getState() {
-		return m_State;
-	}
+        void activateGameObject(bool state) {
+            m_State = state;
+        }
 
-	glm::vec3 getColliderSize() {
-		return m_MaxColliderSize;
-	}
+        bool getState() {
+            return m_State;
+        }
 
-	void newModelMatrix() {
-		m_ModelMatrixNeedUpdate = true;
-	}
+        glm::vec3 getColliderSize() {
+            return m_MaxColliderSize;
+        }
 
-	void setID(int id) {
-		m_ID = id;
-	}
+        void newModelMatrix() {
+            m_ModelMatrixNeedUpdate = true;
+        }
 
-	int getID() {
-		return m_ID;
-	}
+        void setID(int id) {
+            m_ID = id;
+        }
 
-	glm::mat4 updateModelMatrix();
+        int getID() {
+            return m_ID;
+        }
 
-	void draw(Engine::GLSLProgram* shader);
+        glm::mat4 updateModelMatrix();
 
-	bool checkCollision(GameObject* object);
+        void draw(Engine::GLSLProgram* shader);
 
-	GameObject(Mesh * mesh);
-	GameObject(Cube * cube);
-	~GameObject();
-};
+        bool checkCollision(GameObject* object);
+
+        GameObject(Mesh * mesh);
+        GameObject(Cube * cube);
+        ~GameObject();
+    };
+
+}
 

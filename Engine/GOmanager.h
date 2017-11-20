@@ -6,33 +6,36 @@
 
 #include "GLSLProgram.h"
 
-class GameObject;
+namespace Engine {
 
-class GOmanager
-{
-	static GOmanager* m_GOmanager;
+    class GameObject;
 
-	std::vector<GameObject*> m_GameObjects;
-	std::vector<glm::mat4> m_ModelMatrices;
+    class GOmanager
+    {
+        static GOmanager* m_GOmanager;
 
-	GOmanager();
+        std::vector<GameObject*> m_GameObjects;
+        std::vector<glm::mat4> m_ModelMatrices;
 
-	int m_nGameObjectsCreated;
+        GOmanager();
 
-public:
-	~GOmanager();
+        int m_nGameObjectsCreated;
 
-	static GOmanager* getManager() {
-		if (m_GOmanager == nullptr) {
-			m_GOmanager = new GOmanager;
-		}
-		return m_GOmanager;
-	}
+    public:
+        ~GOmanager();
 
-	int addGameObject(GameObject* gameObject);
+        static GOmanager* getManager() {
+            if (m_GOmanager == nullptr) {
+                m_GOmanager = new GOmanager;
+            }
+            return m_GOmanager;
+        }
 
-	void removeGameObject(GameObject * gameObject);
+        int addGameObject(GameObject* gameObject);
 
-	void drawGameObjects(Engine::GLSLProgram* shader);
-};
+        void removeGameObject(GameObject * gameObject);
 
+        void drawGameObjects(Engine::GLSLProgram* shader);
+    };
+
+}

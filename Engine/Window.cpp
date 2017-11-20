@@ -3,11 +3,12 @@
 #include <iostream>
 
 
+
 namespace Engine {
 
 	Window* Window::m_Window = nullptr;
 
-    Window::Window() : m_currentFPS(0), m_deltaTime(0), m_maxPhysicSteps(3)
+    Window::Window() : m_currentFPS(0), m_frameTime(0), m_maxPhysicSteps(3)
     {
         m_Display = new SDL_DisplayMode[SDL_GetNumVideoDisplays()];
 		m_InputManager = InputManager::getInpuManager();
@@ -20,6 +21,109 @@ namespace Engine {
 		}
 		return m_Window;
 	}
+
+    Window::~Window()
+    {
+        delete m_Display;
+        delete m_Window;
+    }
+
+    SDL_Window* Window::initSystem(int width, int height, int desiredFPS, std::string windowName, unsigned int currentFlags) {
+
+        //setOpenGL();
+
+        // Initialize SDL
+        SDL_Init(SDL_INIT_EVERYTHING);
+
+        // Tell SDL that we want a double buffered window so we don't get any flickering 
+        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+        Uint32 flags = SDL_WINDOW_OPENGL;
+
+        if (currentFlags & INVISIBLE) {
+            flags |= SDL_WINDOW_HIDDEN;
+        }
+        if (currentFlags & FULLSCREEN) {
+            flags |= SDL_WINDOW_FULLSCREEN;
+        }
+        if (currentFlags & BORDERLESS) {
+            flags |= SDL_WINDOW_BORDERLESS;
+        }
+
+        m_SDLWindow = SDL_CreateWindow(windowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
+
+        if (m_SDLWindow == nullptr)
+        {
+            std::cout << "Could not create window, error: " << SDL_GetError() << std::endl;
+        }
+
+        // Set up our OpenGL context
+        m_GLContext = SDL_GL_CreateContext(m_SDLWindow);
+        if (m_GLContext == nullptr) {
+            std::cout << "SDL_GL context could not be created" << std::endl;
+        }
+
+        GLenum error = glewInit();
+        if (error != GLEW_OK) {
+            // Problem: glewInit failed, something is seriously wrong.
+            std::cout << "glewInit failed: " << glewGetErrorString(error) << std::endl;
+        }
+
+        std::cout << "*** OpenGL Version: " << glGetString(GL_VERSION) << " ***" << std::endl;
+
+        // Specify clear values for the color buffers
+        // Set the background color to blue
+        glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
+
+        // Set VSync
+        SDL_GL_SetSwapInterval(1); // enabled
+        //SDL_GL_SetSwapInterval(0); // disabled
+
+        getDisplayInfo();
+
+        //Enable alpha blend
+        glEnable(GL_BLEND);
+        //Pixels can be drawn using a function that blends 
+        //the incoming (source, for example a png image) RGBA values with the RGBA values 
+        //that are already in the frame buffer (the destination values, for example the background).
+        //glBlendFunc defines the operation of blending for all draw buffers when it is enabled.
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        m_Width = width;
+        m_Height = height;
+        m_desiredFPS = desiredFPS;
+
+        return m_SDLWindow;
+    }
+
+    void Window::quitSystem()
+    {
+        SDL_GL_DeleteContext(m_GLContext);
+        SDL_DestroyWindow(m_SDLWindow);
+        SDL_Quit();
+    }
+
+    void Window::swapBuffer()
+    {
+        // Swap our buffer and draw everything to the sreen
+        // Use this function to update a window with OpenGL rendering (This is used with double-buffered OpenGL contexts, which are the default)
+        SDL_GL_SwapWindow(m_SDLWindow);
+    }
+
+    void Window::calculateFPS()
+    {
+        static int Timer = SDL_GetTicks();
+        static int i = 100;
+
+        int currentTimer = SDL_GetTicks();
+
+        if (Timer != currentTimer) {
+            i++;
+            // We calculate the FPS of the last 100 frames
+            m_detectedFPS[i % 100] = 1000 / (currentTimer - Timer);
+            Timer = currentTimer;
+        }
+    }
 
 	void Window::showFPS()
 	{
@@ -39,13 +143,15 @@ namespace Engine {
 		}
 	}
 
-	void Window::calculateDeltaTime()
+	void Window::calculateFrameTime()
 	{
-		static float Timer = SDL_GetTicks();
+		static float Timer = 0;
 
-		float currentTimer = SDL_GetTicks();
-		m_deltaTime = (currentTimer - Timer) / 1000;
-		Timer = currentTimer;
+        float currentTimer = SDL_GetTicks();
+        if (Timer != 0) {
+            m_frameTime = currentTimer - Timer;
+        }
+        Timer = currentTimer;      
 	}
 
 	void Window::processEvent()
@@ -78,85 +184,6 @@ namespace Engine {
 			}
 		}
 	}
-
-	Window::~Window()
-    {
-		delete m_Display;
-		delete m_Window;
-    }
-
-
-    SDL_Window* Window::initSystem(int width, int height, int desiredFPS) {
-
-        setOpenGL();
-
-        SDL_Init(SDL_INIT_VIDEO);
-
-        m_SDLWindow = SDL_CreateWindow("test", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
-
-        if (m_SDLWindow == nullptr)
-        {
-            std::cout << "Could not create window, error: " << SDL_GetError() << std::endl;
-        }
-
-        // Set up our OpenGL context
-        m_glContext = SDL_GL_CreateContext(m_SDLWindow);
-        if (m_glContext == nullptr) {
-            std::cout << "SDL_GL context could not be created" << std::endl;
-        }
-
-        GLenum error = glewInit();
-        if (error != GLEW_OK) {
-            // Problem: glewInit failed, something is seriously wrong.
-            std::cout << "glewInit failed: " << glewGetErrorString(error) << std::endl;
-        }
-
-        // Tell SDL that we want a double buffered window so we don't get any flickering 
-        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-        glClearColor(0.0f, 0.0f, 0.0, 1.0f);
-
-        // Set VSync
-        SDL_GL_SetSwapInterval(1); // enabled
-        //SDL_GL_SetSwapInterval(0); // disabled
-
-        getDisplayInfo();
-
-        //Enable alpha blend
-        glEnable(GL_BLEND);
-        //Pixels can be drawn using a function that blends 
-        //the incoming (source, for example a png image) RGBA values with the RGBA values 
-        //that are already in the frame buffer (the destination values, for example the background).
-        //glBlendFunc defines the operation of blending for all draw buffers when it is enabled.
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		m_desiredFPS = desiredFPS;
-
-        return m_SDLWindow;
-    }
-
-    void Window::quitSystem()
-    {
-        SDL_GL_DeleteContext(m_glContext);
-        SDL_DestroyWindow(m_SDLWindow);
-        SDL_Quit();
-    }
-
-	void Window::calculateFPS()
-	{
-		static int Timer = SDL_GetTicks();
-		static int i = 100;
-
-		int currentTimer = SDL_GetTicks();
-
-		if (Timer != currentTimer) {
-			i++;
-			// We calculate the FPS of the last 100 frames
-			m_detectedFPS[i % 100] = 1000 / (currentTimer - Timer);
-			Timer = currentTimer;
-		}
-	}
-
 
     //  tell SDL that we want a forward compatible OpenGL 3.2 context:
     void Window::setOpenGL() {

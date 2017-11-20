@@ -4,19 +4,21 @@
 #include <Engine\InputManager.h>
 #include <Engine\Window.h>
 
+using namespace Engine;
+
 void Player::inputCheck()
 {
 	if (InputManager::getInpuManager()->isKeyDown(SDLK_a)) {
-		GameObject::move(glm::vec3(-1.0f, 0.0f, 0.0f) * Engine::Window::getWindow()->getPhysicDeltaTime());
+		GameObject::move(glm::vec3(-1.0f, 0.0f, 0.0f) * Engine::Window::getWindow()->getFixedDeltaTime() * 0.01f);
 		if (GameObject::getTempRotation().z < 20) {
-			GameObject::setTempRotation(glm::vec3(0.0f, 0.0f, 1.0f), 90.0f * Engine::Window::getWindow()->getPhysicDeltaTime());
+			GameObject::setTempRotation(glm::vec3(0.0f, 0.0f, 1.0f), 90.0f * Engine::Window::getWindow()->getFixedDeltaTime() * 0.01f);
 		}
 	}
 	else {
 		if (InputManager::getInpuManager()->isKeyDown(SDLK_d)) {
-			GameObject::move(glm::vec3(1.0f, 0.0f, 0.0f) * Engine::Window::getWindow()->getPhysicDeltaTime());
+			GameObject::move(glm::vec3(1.0f, 0.0f, 0.0f) * Engine::Window::getWindow()->getFixedDeltaTime() * 0.01f);
 			if (GameObject::getTempRotation().z > -20) {
-				GameObject::setTempRotation(glm::vec3(0.0f, 0.0f, 1.0f), -90.0f * Engine::Window::getWindow()->getPhysicDeltaTime());
+				GameObject::setTempRotation(glm::vec3(0.0f, 0.0f, 1.0f), -90.0f * Engine::Window::getWindow()->getFixedDeltaTime() * 0.01f);
 			}		
 		}
 		else {
@@ -54,7 +56,7 @@ void Player::init(Engine::GLSLProgram* shader, int nBullets)
 	GameObject::setScale(glm::vec3(0.01f, 0.01f, 0.01f));
 	GameObject::setRotation(glm::vec3(0.0f, 1.0f, 0.0f), -90);
 	
-	m_Cube = new Cube(TextureCache::getTextureCache()->getTexture("textures/ronnie.jpg"));
+	m_Cube = new Cube(TextureCache::getTextureCache()->getTexture("textures/ronnie.jpg", fileExtension::JPG));
 	m_Cube->Init(shader);
 
 	for (int i = 0; i < nBullets; i++) {
@@ -77,7 +79,7 @@ void Player::updateBullets()
 	for (int i =0 ; i < m_ActiveBullets.size(); i++)
 	{
 		m_ActiveBullets[i]->getElement()->move(glm::vec3(0.0f, 0.0f, -1.0f) 
-												* Engine::Window::getWindow()->getPhysicDeltaTime() * 2.0f);
+												* Engine::Window::getWindow()->getFixedDeltaTime() * 0.05f );
 		glm::vec3 position = m_ActiveBullets[i]->getElement()->getPosition();
 		if (position.z <= -6)
 		{

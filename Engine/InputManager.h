@@ -3,37 +3,38 @@
 #include <unordered_map>
 #include <glm.hpp>
 
+namespace Engine {
 
-class InputManager
-{
-public:
-	static InputManager* getInpuManager();
-	~InputManager();
+    class InputManager
+    {
+    public:
+        static InputManager* getInpuManager();
+        ~InputManager();
 
-	void update();
+        void update();
 
-	void pressKey(unsigned int keyID);
-	void releaseKey(unsigned int keyID);
+        void pressKey(unsigned int keyID);
+        void releaseKey(unsigned int keyID);
 
-	void setMouseCoords(float x, float y);
-	glm::vec2 getMouseCoords() const { return m_MouseCoords; }
+        void setMouseCoords(float x, float y);
+        glm::vec2 getMouseCoords() const { return m_MouseCoords; }
 
-	bool isKeyDown(unsigned int keyID);
-	bool isKeyPressed(unsigned int keyID);
+        bool isKeyDown(unsigned int keyID);
+        bool isKeyPressed(unsigned int keyID);
 
-private:
+    private:
 
-	InputManager();
-	static InputManager* m_InputeManager;
+        InputManager();
+        static InputManager* m_InputeManager;
 
-	bool wasKeyDown(unsigned int keyID);
+        bool wasKeyDown(unsigned int keyID);
 
-	std::unordered_map<unsigned int, bool> m_KeyMap;
+        std::unordered_map<unsigned int, bool> m_KeyMap;
 
-	std::unordered_map<unsigned int, bool> m_PreviousKeyMap;
-	glm::vec2 m_MouseCoords;
-};
+        std::unordered_map<unsigned int, bool> m_PreviousKeyMap;
+        glm::vec2 m_MouseCoords;
+    };
 
-
+}
 
 

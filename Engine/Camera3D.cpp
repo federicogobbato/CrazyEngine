@@ -51,10 +51,3 @@ void Camera3D::update()
         m_NeedUpdate = false;
     }
 }
-
-// CAMERA 2D
-//glm::vec3 translate(m_ScreenWidth / 2, m_ScreenHeight / 2, 0.0f);
-//m_CameraMatrix = glm::ortho(0.0f, m_ScreenWidth, 0.0f, m_ScreenHeight);
-//m_CameraMatrix = glm::translate(m_CameraMatrix, translate);
-//glm::vec3 scale(3, 3, 0.0f);
-//m_CameraMatrix = glm::scale(glm::mat4(1.0f), scale) * m_CameraMatrix;

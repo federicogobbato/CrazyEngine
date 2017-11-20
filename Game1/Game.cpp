@@ -6,6 +6,8 @@
 
 #include <Engine\GOmanager.h>
 
+using namespace Engine;
+
 Game::Game(int difficulty) : m_EnemyStartPosition{ glm::vec3(0.0f, 0.0f, -6.0f), 
 									glm::vec3(-0.6f, 0.0f, -6.0f), 
 									glm::vec3(0.6f, 0.0f, -6.0f) }, 
@@ -14,7 +16,7 @@ Game::Game(int difficulty) : m_EnemyStartPosition{ glm::vec3(0.0f, 0.0f, -6.0f),
 									m_Difficulty(difficulty)
 {
 	m_CameraShader = new Engine::GLSLProgram;
-	m_Camera = new Camera3D(glm::vec3(0.0, 0.5, 1.0), 800, 600);	
+	m_Camera = new Camera3D(glm::vec3(0.0, 0.5, 1.0), Window::getWindow()->getScreenWidth(), Window::getWindow()->getScreenHeight());	
 	m_SpaceShipMesh = new Mesh(TextureCache::getTextureCache()->getTexture("textures/dark_fighter_color.pbm", PBM));	
 }
 
@@ -65,20 +67,17 @@ void Game::update()
 		int physicStep = 0;
 
 		// Every frame we update the position and check the collisions "MaxPhysicSteps" times
-		while (physicStep < Engine::Window::getWindow()->getMaxPhysicSteps())
+		while (physicStep < Engine::Window::getWindow()->getMaxPhysicSteps() && !m_PlayerDetroyed)
 		{
 			m_Player->update();
 
 			updateEnemies();
 
-			checkCollision();
-
-			// Update the Input Manager to build the map of the keys pressed the first physic step 
-			if (physicStep == 0) {
-				InputManager::getInpuManager()->update();
-			}
+			checkCollision();           
 
 			physicStep++;
+
+            Engine::Window::getWindow()->processEvent();
 		}
 
 		if (currentTime - timerPrevSecond > 1000) {
@@ -119,11 +118,13 @@ void Game::updateEnemies()
 	for (int i=0; i < m_ActiveEnemies.size() ; i++)
 	{
 		m_ActiveEnemies[i]->getElement()->move(glm::vec3(0.0, 0.0, 1.0) 
-												* Engine::Window::getWindow()->getPhysicDeltaTime());
+												* Engine::Window::getWindow()->getFixedDeltaTime() * 0.01f);
 		if (m_ActiveEnemies[i]->getElement()->getPosition().z > 1.0f) {
 			std::cout << "Main ship destroyed" << std::endl;
 			std::cout << "GAME OVER!!!!" << std::endl;
 			m_PlayerDetroyed = true;
+            //Engine::Window::getWindow()->setGameState(GameState::QUIT);
+            break;
 		}
 	}
 }
@@ -160,8 +161,11 @@ void Game::checkCollision()
 	for (int i = 0; i < m_ActiveEnemies.size(); i++)
 	{
 		if (m_Player->checkCollision(m_ActiveEnemies[i]->getElement())) {
+            std::cout << "YOU are destroyed" << std::endl;
 			std::cout << "GAME OVER!!!!" << std::endl;
 			m_PlayerDetroyed = true;
+            //Engine::Window::getWindow()->setGameState(GameState::QUIT);
+            break;
 		}
 
 		if (m_Player->checkBulletsCollision(m_ActiveEnemies[i]->getElement())) {

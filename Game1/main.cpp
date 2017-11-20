@@ -2,7 +2,6 @@
 
 #define GLEW_STATIC
 
-#include <iostream>
 #include <Engine\Window.h>
 #include "Game.h"
 
@@ -21,17 +20,21 @@ int main(int argc, char* argv[]) {
 	game->init();
 
 	while (window->getGameState() != Engine::GameState::QUIT) {
-		window->processEvent();
 
+        Engine::Window::getWindow()->processEvent();
+
+        // If enabled, do depth comparisons and update the depth buffer.
 		glEnable(GL_DEPTH_TEST);
+        // Clear the color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		window->calculateDeltaTime();
+		window->calculateFrameTime();
 		window->calculateFPS();
 		//window->showFPS();
 
 		game->update();
-		SDL_GL_SwapWindow(window->getSDLWindow());
+        // Swap our buffer and draw everything to the screen
+        window->swapBuffer(); 
 	}
 
 	delete game;
