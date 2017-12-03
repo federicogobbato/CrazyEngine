@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-#include <Engine\ExtraFunction.h>
+#include <Engine\ExtraFunctions.h>
 #include "Arkanoid.h"
 
 Level::Level() :
@@ -40,7 +40,7 @@ void Level::loadLevelMap(const std::string &levelPath, const int & screenWidth, 
 {
     std::ifstream file(levelPath);
     if (file.fail()) {
-        Engine::fatalError("Failed to open " + levelPath);
+        Engine::fatalError("Failed to open " + levelPath, Arkanoid::GetSingleton());
     }
 
     std::string line;
@@ -143,7 +143,7 @@ void Level::updateLevel(float deltaTime)
             break;
         case WINNER:
             m_LevelState = PAUSE_LEVEL;
-            Engine::Window::getWindow()->setGameState(Engine::GameState::NEXT_LEVEL);
+            Engine::Window::GetSingleton()->setGameState(Engine::GameState::NEXT_LEVEL);
             break;
     }
 }

@@ -5,7 +5,9 @@
 #include <ctime>
 #include <map>
 
+#include <Engine\TSingleton.h>
 #include <Engine\Window.h>
+#include <Engine\Game.h>
 #include <Engine\GLSLProgram.h>
 #include <Engine\Camera2D.h>
 #include <Engine\SpriteBatch.h>
@@ -14,25 +16,24 @@
 
 #include "Level.h"
 
-class Arkanoid
+class Arkanoid : public Engine::Game 
 {
 public:
+
     Arkanoid();
     ~Arkanoid();
 
-    void run();
+    void init() override;
 
-    void gameLoop();
+    void update() override;
 
 private:
-
-    void initSystem();
 
     void initShaders();
 
     void loadLevel(const std::string &levelPath, int levelNumber);
 
-    void drawGame();
+    void render() override;
 
     void setUniformShaderVariables();
 

@@ -1,7 +1,41 @@
-﻿SDL2_ttf.lib(SDL2_ttf.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
+﻿  WindowSDL.cpp
+  WindowOPENGL.cpp
+  Window.cpp
+d:\gitproject\crazyengine\engine\window.cpp(97): warning C4244: 'initializing': conversion from 'Uint32' to 'float', possible loss of data
+d:\gitproject\crazyengine\engine\window.cpp(117): warning C4244: 'argument': conversion from 'Sint32' to 'float', possible loss of data
+  TextureCache.cpp
+  Texture.cpp
+  SpriteBatch.cpp
+d:\gitproject\crazyengine\engine\spritebatch.cpp(32): warning C4018: '<': signed/unsigned mismatch
+d:\gitproject\crazyengine\engine\spritebatch.cpp(51): warning C4018: '<': signed/unsigned mismatch
+d:\gitproject\crazyengine\engine\spritebatch.cpp(85): warning C4018: '<': signed/unsigned mismatch
+  Sprite.cpp
+  picoPNG.cpp
+  Mesh.cpp
+  InputManager.cpp
+  GOmanager.cpp
+d:\gitproject\crazyengine\engine\gomanager.cpp(40): warning C4018: '<': signed/unsigned mismatch
+d:\gitproject\crazyengine\engine\gomanager.cpp(48): warning C4018: '<': signed/unsigned mismatch
+  GLSLProgram.cpp
+  GameObject2D.cpp
+  GameObject.cpp
+  ExtraFunctions.cpp
+d:\gitproject\crazyengine\engine\extrafunctions.cpp(48): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+d:\gitproject\crazyengine\engine\extrafunctions.cpp(52): warning C4244: '-=': conversion from 'std::streamoff' to 'int', possible loss of data
+  Cube.cpp
+  Core.cpp
+  Collider2D.cpp
+  Camera3D.cpp
+d:\gitproject\crazyengine\engine\camera3d.h(30): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  Camera2D.cpp
+  Generating Code...
+d:\gitproject\crazyengine\engine\tsingleton.h(31): warning C4715: 'Engine::TSingleton<Engine::Window>::GetSingleton': not all control paths return a value
+SDL2_ttf.lib(SDL2_ttf.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
 SDL2_ttf.lib(SDL2_ttf.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 opengl32.lib(OPENGL32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
 opengl32.lib(OPENGL32.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
 glew32.lib(glew32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
 glew32.lib(glew32.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+SDL2_image.lib(SDL2_image.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in SDL2.lib(SDL2.dll); second definition ignored
+SDL2_image.lib(SDL2_image.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
   Engine.vcxproj -> D:\GitProject\CrazyEngine\Debug\Engine.lib

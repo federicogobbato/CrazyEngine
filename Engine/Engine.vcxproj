@@ -71,7 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)\Include\src;$(SolutionDir)\Include\glew;$(SolutionDir)\Include\glm;$(SolutionDir)\Include\SDL;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -86,7 +86,7 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <Lib>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_ttf.lib;opengl32.lib;glew32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2test.lib;SDL2_ttf.lib;opengl32.lib;glew32.lib;SOIL.lib;SDL2_image.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -142,7 +142,8 @@
     <ClInclude Include="Collider2D.h" />
     <ClInclude Include="Core.h" />
     <ClInclude Include="Cube.h" />
-    <ClInclude Include="ExtraFunction.h" />
+    <ClInclude Include="ExtraFunctions.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObject2D.h" />
     <ClInclude Include="GLSLProgram.h" />
@@ -151,12 +152,15 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="picoPNG.h" />
     <ClInclude Include="Pool.h" />
+    <ClInclude Include="TSingleton.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCache.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="WindowOPENGL.h" />
+    <ClInclude Include="WindowSDL.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera2D.cpp" />
@@ -164,7 +168,7 @@
     <ClCompile Include="Collider2D.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="ExtraFunction.cpp" />
+    <ClCompile Include="ExtraFunctions.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObject2D.cpp" />
     <ClCompile Include="GLSLProgram.cpp" />
@@ -177,6 +181,8 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureCache.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="WindowOPENGL.cpp" />
+    <ClCompile Include="WindowSDL.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

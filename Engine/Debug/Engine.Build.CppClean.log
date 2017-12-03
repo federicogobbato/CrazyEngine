@@ -5,7 +5,7 @@ d:\gitproject\crazyengine\engine\debug\camera3d.obj
 d:\gitproject\crazyengine\engine\debug\collider2d.obj
 d:\gitproject\crazyengine\engine\debug\core.obj
 d:\gitproject\crazyengine\engine\debug\cube.obj
-d:\gitproject\crazyengine\engine\debug\extrafunction.obj
+d:\gitproject\crazyengine\engine\debug\extrafunctions.obj
 d:\gitproject\crazyengine\engine\debug\gameobject.obj
 d:\gitproject\crazyengine\engine\debug\gameobject2d.obj
 d:\gitproject\crazyengine\engine\debug\glslprogram.obj
@@ -18,6 +18,8 @@ d:\gitproject\crazyengine\engine\debug\spritebatch.obj
 d:\gitproject\crazyengine\engine\debug\texture.obj
 d:\gitproject\crazyengine\engine\debug\texturecache.obj
 d:\gitproject\crazyengine\engine\debug\window.obj
+d:\gitproject\crazyengine\engine\debug\windowopengl.obj
+d:\gitproject\crazyengine\engine\debug\windowsdl.obj
 d:\gitproject\crazyengine\debug\engine.lib
 d:\gitproject\crazyengine\debug\engine.pdb
 d:\gitproject\crazyengine\engine\debug\engine.tlog\cl.command.1.tlog

@@ -3,31 +3,29 @@
 #define GLEW_STATIC
 
 #include "Arkanoid.h"
-#include <Engine\Window.h>
+#include <Engine\WindowOPENGL.h>
 
 int main(int argc, char* argv[]) {
 
-    Engine::Window* window = Engine::Window::getWindow();
+    Engine::Window* window = new Engine::WindowOPENGL();
 
     window->initSystem();
 
-    Arkanoid* game = new Arkanoid();
-    game->run();
+    //window->disableVSync();
+
+    Engine::Game* game = new Arkanoid();
+    game->init();
 
     while (window->getGameState() != Engine::GameState::QUIT) {
 
-        Engine::Window::getWindow()->processEvent();
-
-        // Set the base depth to 1.0
-        glClearDepth(1.0);
-        // Clear the color and depth buffer
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        window->processEvent();
+        window->clearRenderer();
 
         window->calculateFrameTime();
         window->calculateFPS();
         window->showFPS();
 
-        game->gameLoop();
+        game->update();
         // Swap our buffer and draw everything to the screen
         window->swapBuffer();
     }

@@ -42,14 +42,20 @@ namespace Engine {
 
     public:
 
+#pragma region SETTERS
         void setPosition(glm::vec3 position);
-        void move(glm::vec3 position);
         void setRotation(glm::vec3 rotation);
         void setRotation(glm::vec3 axis, float rotation);
         void setScale(glm::vec3 scale);
-
         void setTempRotation(glm::vec3 axis, float rotation);
 
+        void setID(int id) {
+            m_ID = id;
+        }
+#pragma endregion
+
+
+#pragma region GETTERS
         glm::vec3 getPosition() {
             return m_Position;
         }
@@ -71,6 +77,19 @@ namespace Engine {
             return m_Scale;
         }
 
+        bool getState() {
+            return m_State;
+        }
+
+        glm::vec3 getColliderSize() {
+            return m_MaxColliderSize;
+        }
+
+        int getID() {
+            return m_ID;
+        }
+#pragma endregion
+
         void resetTempRotation() {
             if (m_TempRotation != glm::vec3()) {
                 m_TempRotation = glm::vec3();
@@ -83,27 +102,13 @@ namespace Engine {
             m_State = state;
         }
 
-        bool getState() {
-            return m_State;
-        }
-
-        glm::vec3 getColliderSize() {
-            return m_MaxColliderSize;
-        }
-
         void newModelMatrix() {
             m_ModelMatrixNeedUpdate = true;
         }
 
-        void setID(int id) {
-            m_ID = id;
-        }
-
-        int getID() {
-            return m_ID;
-        }
-
         glm::mat4 updateModelMatrix();
+
+        void move(glm::vec3 position);
 
         void draw(Engine::GLSLProgram* shader);
 

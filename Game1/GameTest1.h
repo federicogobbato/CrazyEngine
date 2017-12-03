@@ -1,17 +1,19 @@
 #pragma once
 
+#include <Engine\TSingleton.h>
+#include <Engine\Window.h>
+#include <Engine\Game.h>
 #include <Engine\GLSLProgram.h>
 #include <Engine\Camera3D.h>
 #include <Engine\Mesh.h>
 #include <Engine\TextureCache.h>
-#include <Engine\Window.h>
 #include <Engine\Cube.h>
 #include <Engine\Pool.h>
 
 #include "Player.h"
 
 
-class Game
+class GameTest1 : public Game
 {
 	Engine::GLSLProgram* m_CameraShader;
 	Camera3D* m_Camera;
@@ -28,22 +30,21 @@ class Game
 	int m_nDestroyedEnemies;
 	bool m_PlayerDetroyed;
 
-	void draw();
+	void render() override;
+
 	void CompileShaders();
 	void updateUniformVariables();
 
 	void checkCollision();
-
 	void updateEnemies();
-
 	void destroyEnemy(int);
 
 public:
-	Game(int difficulty = 2);
-	~Game();
+    GameTest1(int difficulty = 2);
+	~GameTest1();
 
-	void init();
+	void init() override;
 
-	void update();
+	void update() override;
 };
 

@@ -1,93 +1,48 @@
 #include "Window.h"
 
 #include <iostream>
+#include <SDL_image.h>
 
-
+#include "ExtraFunctions.h"
 
 namespace Engine {
 
-	Window* Window::m_Window = nullptr;
+	//Window* Window::m_Window = nullptr;
 
-    Window::Window() : m_currentFPS(0), m_frameTime(0), m_maxPhysicSteps(3)
+    Window::Window()
     {
         m_Display = new SDL_DisplayMode[SDL_GetNumVideoDisplays()];
 		m_InputManager = InputManager::getInpuManager();
     }
 
-	Window* Window::getWindow()
-	{
-		if (m_Window == nullptr) {
-			m_Window = new Window;
-		}
-		return m_Window;
-	}
-
     Window::~Window()
     {
         delete m_Display;
-        delete m_Window;
     }
 
-    SDL_Window* Window::initSystem(int width, int height, int desiredFPS, std::string windowName, unsigned int currentFlags) {
+    SDL_Window* Window::initSystem(int width, int height, int desiredFPS, std::string windowName, unsigned int windowFlags) {
 
-        //setOpenGL();
+        initSDL();
 
-        // Initialize SDL
-        SDL_Init(SDL_INIT_EVERYTHING);
-
-        // Tell SDL that we want a double buffered window so we don't get any flickering 
-        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-        Uint32 flags = SDL_WINDOW_OPENGL;
-
-        if (currentFlags & INVISIBLE) {
-            flags |= SDL_WINDOW_HIDDEN;
+        if (windowFlags & INVISIBLE) {
+            m_WindowFlags |= SDL_WINDOW_HIDDEN;
         }
-        if (currentFlags & FULLSCREEN) {
-            flags |= SDL_WINDOW_FULLSCREEN;
+        if (windowFlags & FULLSCREEN) {
+            m_WindowFlags |= SDL_WINDOW_FULLSCREEN;
         }
-        if (currentFlags & BORDERLESS) {
-            flags |= SDL_WINDOW_BORDERLESS;
+        if (windowFlags & BORDERLESS) {
+            m_WindowFlags |= SDL_WINDOW_BORDERLESS;
         }
 
-        m_SDLWindow = SDL_CreateWindow(windowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, flags);
+        m_SDLWindow = SDL_CreateWindow(windowName.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, m_WindowFlags);
 
         if (m_SDLWindow == nullptr)
         {
-            std::cout << "Could not create window, error: " << SDL_GetError() << std::endl;
+            std::cout << "SDL error: " << SDL_GetError() << std::endl;
+            fatalError("Window could not created");
         }
 
-        // Set up our OpenGL context
-        m_GLContext = SDL_GL_CreateContext(m_SDLWindow);
-        if (m_GLContext == nullptr) {
-            std::cout << "SDL_GL context could not be created" << std::endl;
-        }
-
-        GLenum error = glewInit();
-        if (error != GLEW_OK) {
-            // Problem: glewInit failed, something is seriously wrong.
-            std::cout << "glewInit failed: " << glewGetErrorString(error) << std::endl;
-        }
-
-        std::cout << "*** OpenGL Version: " << glGetString(GL_VERSION) << " ***" << std::endl;
-
-        // Specify clear values for the color buffers
-        // Set the background color to blue
-        glClearColor(0.0f, 0.5f, 1.0f, 1.0f);
-
-        // Set VSync
-        SDL_GL_SetSwapInterval(1); // enabled
-        //SDL_GL_SetSwapInterval(0); // disabled
-
-        getDisplayInfo();
-
-        //Enable alpha blend
-        glEnable(GL_BLEND);
-        //Pixels can be drawn using a function that blends 
-        //the incoming (source, for example a png image) RGBA values with the RGBA values 
-        //that are already in the frame buffer (the destination values, for example the background).
-        //glBlendFunc defines the operation of blending for all draw buffers when it is enabled.
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+        //getDisplayInfo();
 
         m_Width = width;
         m_Height = height;
@@ -98,16 +53,8 @@ namespace Engine {
 
     void Window::quitSystem()
     {
-        SDL_GL_DeleteContext(m_GLContext);
         SDL_DestroyWindow(m_SDLWindow);
         SDL_Quit();
-    }
-
-    void Window::swapBuffer()
-    {
-        // Swap our buffer and draw everything to the sreen
-        // Use this function to update a window with OpenGL rendering (This is used with double-buffered OpenGL contexts, which are the default)
-        SDL_GL_SwapWindow(m_SDLWindow);
     }
 
     void Window::calculateFPS()
@@ -184,16 +131,6 @@ namespace Engine {
 			}
 		}
 	}
-
-    //  tell SDL that we want a forward compatible OpenGL 3.2 context:
-    void Window::setOpenGL() {
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
-        SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
-        // A stencil buffer is an extra buffer, in addition to the color buffer and depth buffer
-        // It used to limit the area of the rendering 
-    }
 
     void Window::getDisplayInfo()
     {

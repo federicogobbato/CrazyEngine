@@ -1,7 +1,7 @@
 #include "TextureCache.h"
 
 #include <iostream>
-#include "Core.h"
+#include "ExtraFunctions.h"
 
 namespace Engine {
 
@@ -37,8 +37,24 @@ namespace Engine {
         {
             if (fileExist(texturePath))
             {
-                Texture* newTexture = new Texture;
-                newTexture->loadData(texturePath, flag);
+                Texture* newTexture = nullptr;
+
+                switch (flag)
+                {
+                case PNG:
+                    newTexture = new TexturePNG;
+                    break;
+                case JPG:
+                    newTexture = new TextureJPG;
+                    break;
+                case PBM:
+                    newTexture = new TexturePBM;
+                    break;
+                default:
+                    break;
+                }
+
+                newTexture->loadData(texturePath);
                 std::pair<std::string, Texture*> newPair(texturePath, newTexture);
                 m_TextureMap.insert(newPair);
                 //std::cout << "Used Cached Texture" << std::endl;

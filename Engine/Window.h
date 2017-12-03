@@ -3,6 +3,8 @@
 #include <glew.h>
 #include <SDL.h>
 #include <string>
+#include "TSingleton.h"
+#include "Core.h"
 #include "InputManager.h"
 
 namespace Engine {
@@ -13,6 +15,11 @@ namespace Engine {
         BORDERLESS = 0x4,
     };
 
+    enum SDL_Flags {
+        OPENGL_CONTEXT = 0X1,
+        SDL_RENDERER = 0X2,
+    };
+
 	enum GameState {
 		START,
 		QUIT,
@@ -21,33 +28,34 @@ namespace Engine {
         NEXT_LEVEL
 	};
 
-    class Window 
+    class Window : public TSingleton<Window>
     {
+
+    protected:
+
         SDL_Window* m_SDLWindow;
-        SDL_GLContext m_GLContext;
         SDL_DisplayMode* m_Display;
 
 		InputManager* m_InputManager;
 
+        unsigned int m_WindowFlags;
         int m_Width;
         int m_Height;
 		int m_desiredFPS;
-		int m_currentFPS;
+		int m_currentFPS = 0;
 		int m_detectedFPS[100];
-		float m_frameTime;
-		int m_maxPhysicSteps;
+		float m_frameTime = 0;
+		int m_maxPhysicSteps = 3;
 
 		GameState m_GameState = START;
 
-        void setOpenGL();
         void getDisplayInfo();
 
-		static Window* m_Window;
-		Window();
+		//static Window* m_Window;
 
     public:
 
-		static Window* getWindow();
+		//static Window* getWindow();
 
         SDL_Window* getSDLWindow() const {
             return m_SDLWindow;
@@ -83,11 +91,16 @@ namespace Engine {
 			return m_maxPhysicSteps;
 		}     
 
+        virtual void setVSync() = 0;
+        virtual void disableVSync() = 0;
+
+        Window();
         ~Window();
 
-        SDL_Window* initSystem(int width= 1280, int height= 720, int desiredFPS= 60, std::string windowName= "test", unsigned int currentFlags = 0);
-        void quitSystem();
-        void swapBuffer();
+        virtual SDL_Window* initSystem(int width= 1280, int height= 720, int desiredFPS= 60, std::string windowName= "test", unsigned int windowFlags = 0);
+        virtual void quitSystem();
+        virtual void clearRenderer() = 0;
+        virtual void swapBuffer() = 0;
 
 		void calculateFPS();
 		void showFPS();

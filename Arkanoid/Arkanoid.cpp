@@ -1,6 +1,6 @@
 #include "Arkanoid.h"
 
-#include <Engine\ExtraFunction.h>
+#include <Engine\ExtraFunctions.h>
 
 using namespace Engine;
 
@@ -19,18 +19,13 @@ Arkanoid::~Arkanoid()
     }
 }
 
-void Arkanoid::run()
+void Arkanoid::init()
 {
-    initSystem();
-    srand(time(0));
-    loadLevel("Levels/Level1.txt", m_CurrentLevelNumber); 
-}
-
-void Arkanoid::initSystem()
-{
-    m_Camera.init((float)Window::getWindow()->getScreenWidth(), (float)Window::getWindow()->getScreenHeight());
+    m_Camera.init((float)Window::GetSingleton()->getScreenWidth(), (float)Window::GetSingleton()->getScreenHeight());
     initShaders();
     m_ActorsSpriteBatch.init();
+    srand(time(0));
+    loadLevel("Levels/Level1.txt", m_CurrentLevelNumber); 
 }
 
 void Arkanoid::initShaders()
@@ -55,14 +50,14 @@ void Arkanoid::loadLevel(const std::string &levelPath, int levelNumber)
     {
         // Create a new level
         Level *newLevel = new Level();
-        newLevel->loadLevelMap(levelPath, Window::getWindow()->getScreenWidth(), Window::getWindow()->getScreenHeight());
-        newLevel->loadLevelElements(Window::getWindow()->getScreenWidth(), Window::getWindow()->getScreenHeight());
+        newLevel->loadLevelMap(levelPath, Window::GetSingleton()->getScreenWidth(), Window::GetSingleton()->getScreenHeight());
+        newLevel->loadLevelElements(Window::GetSingleton()->getScreenWidth(), Window::GetSingleton()->getScreenHeight());
         m_Levels[levelNumber] = newLevel;
         m_CurrentLevel = newLevel;
     }   
 }
 
-void Arkanoid::gameLoop()
+void Arkanoid::update()
 {
     static int timerAtBegin = SDL_GetTicks();
     static int timerPrevSecond = timerAtBegin;
@@ -72,33 +67,31 @@ void Arkanoid::gameLoop()
     int physicStep = 0;
 
     // Every frame we update the position and check the collisions "MaxPhysicSteps" times
-    while (physicStep < Window::getWindow()->getMaxPhysicSteps())
+    while (physicStep < Window::GetSingleton()->getMaxPhysicSteps())
     {        
-        m_CurrentLevel->updateLevel(Window::getWindow()->getFixedDeltaTime());
-        std::cout << Window::getWindow()->getFixedDeltaTime() << std::endl;
-
+        m_CurrentLevel->updateLevel(Window::GetSingleton()->getFixedDeltaTime());
         physicStep++;
 
-        if (Window::getWindow()->getGameState() == GameState::NEXT_LEVEL)
+        if (Window::GetSingleton()->getGameState() == GameState::NEXT_LEVEL)
         {
             m_CurrentLevelNumber++;
             if (m_CurrentLevelNumber > m_MaxLevelNumber) {
                 m_CurrentLevelNumber = 1;
             }
             loadLevel("Levels/Level" + std::to_string(m_CurrentLevelNumber) + ".txt", m_CurrentLevelNumber);
-            Window::getWindow()->setGameState(GameState::PLAY);
+            Window::GetSingleton()->setGameState(GameState::PLAY);
             break;
         }
 
         // Update the Input Manager to build the map of the keys pressed the first physic step 
-        Window::getWindow()->processEvent();
+        Window::GetSingleton()->processEvent();
     }
 
     m_Camera.update();
-    drawGame();
+    render();
 }
 
-void Arkanoid::drawGame()
+void Arkanoid::render()
 {
     m_TextureProgram.use();
     setUniformShaderVariables();

@@ -4,7 +4,7 @@
 #include <glm.hpp>
 
 #include "SpriteBatch.h"
-#include "Texture.h"
+#include "TextureCache.h"
 
 namespace Engine {
 

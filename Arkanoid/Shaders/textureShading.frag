@@ -14,7 +14,6 @@ uniform sampler2D myTexture;
 void main() {
 
     vec4 textureColor = texture(myTexture, fragmentUV);
-    
-    //Make crazy colors using time and position!
+
     color = fragmentColor * textureColor;
 }

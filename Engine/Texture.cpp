@@ -5,7 +5,7 @@
 #include <fstream>
 
 #include "picoPNG.h"
-#include "ExtraFunction.h"
+#include "ExtraFunctions.h"
 
 namespace Engine {
 
@@ -17,27 +17,15 @@ namespace Engine {
     {
     }
 
-    void Texture::loadData(const std::string& texturePath, fileExtension flag) {
+    void Texture::loadData(const std::string& texturePath) {
 
+        // (WE don't draw a texture. WE map or apply a texture on a primitive)
         // Generate the OpenGL texture object
         glGenTextures(1, &m_ID);
         // Bind the texture object
         glBindTexture(GL_TEXTURE_2D, m_ID);
 
-        switch (flag)
-        {
-        case PNG:
-            loadPNGTexture(texturePath);
-            break;
-        case JPG:
-            loadJPGTexture(texturePath);
-            break;
-        case PBM:
-            loadPGMTexture(texturePath);
-            break;
-        default:
-            break;
-        }
+        loadTexture(texturePath);
 
         // Set some texture parameters
         // (Set how the texture is sampled when the UV size coordinates are outside the range of 0 to 1) 
@@ -54,8 +42,47 @@ namespace Engine {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
+    void TextureJPG::loadTexture(const std::string & texturePath)
+    {
+        unsigned char* image = SOIL_load_image(&texturePath[0], &m_Width, &m_Height, 0, SOIL_LOAD_RGB);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+        SOIL_free_image_data(image);
+    }
 
-    void Texture::loadPGMTexture(const std::string & texturePath)
+    void TexturePNG::loadTexture(const std::string& texturePath) {
+
+        //This is the input data to decodePNG, which we load from a file
+        std::vector<unsigned char> in;
+        //This is the output data from decodePNG, which is the pixel data for our texture
+        std::vector<unsigned char> out;
+
+        unsigned long width, height;
+        // Read in the image file contents into a Buffer
+        if (!readFileToBuffer(texturePath, in)) {
+            fatalError("Failed to load PNG file to buffer!");
+        }
+
+        // Decode the .png format into an array of pixels
+        int errorCode = decodePNG(out, width, height, &(in[0]), in.size());
+        if (errorCode != 0) {
+            fatalError("dedodePNG failed with error: " + std::to_string(errorCode));
+        }
+
+        // UPLOAD the image data (pixels) to the texture.
+        // The arguments describe the parameters of the texture image, such as height, width, width of the border, 
+        // level-of-detail number (see glTexParameter), and number of color components provided. 
+        // The last three arguments describe how the image is represented in memory. 
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &(out[0]));
+
+        m_Width = width;
+        m_Height = height;
+    }
+
+    struct Texel {
+        char r, g, b, a;
+    };
+
+    void TexturePBM::loadTexture(const std::string & texturePath)
     {
         std::vector<Texel> CPUtexture;
 
@@ -77,47 +104,5 @@ namespace Engine {
         }
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, &CPUtexture[0]);
-    }
-
-    void Texture::loadJPGTexture(const std::string & texturePath)
-    {
-        unsigned char* image = SOIL_load_image(&texturePath[0], &m_Width, &m_Height, 0, SOIL_LOAD_RGB);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-        SOIL_free_image_data(image);
-    }
-
-    void Texture::loadPNGTexture(const std::string& texturePath) {
-
-        //This is the input data to decodePNG, which we load from a file
-        std::vector<unsigned char> in;
-        //This is the output data from decodePNG, which is the pixel data for our texture
-        std::vector<unsigned char> out;
-
-        unsigned long width, height;
-        // Read in the image file contents into a Buffer
-        if (!readFileToBuffer(texturePath, in)) {
-            fatalError("Failed to load PNG file to buffer!");
-        }
-
-        // Decode the .png format into an array of pixels
-        int errorCode = decodePNG(out, width, height, &(in[0]), in.size());
-        if (errorCode != 0) {
-            fatalError("dedodePNG failed with error: " + std::to_string(errorCode));
-        }
-
-        // (WE don't draw a texture. WE map or apply a texture on a primitive)
-        // Generate the OpenGL texture object
-        glGenTextures(1, &(m_ID));
-        // Bind the texture object
-        glBindTexture(GL_TEXTURE_2D, m_ID);
-
-        // UPLOAD the image data (pixels) to the texture.
-        // The arguments describe the parameters of the texture image, such as height, width, width of the border, 
-        // level-of-detail number (see glTexParameter), and number of color components provided. 
-        // The last three arguments describe how the image is represented in memory. 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, &(out[0]));
-
-        m_Width = width;
-        m_Height = height;
     }
 }

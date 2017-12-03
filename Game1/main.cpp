@@ -3,11 +3,12 @@
 #define GLEW_STATIC
 
 #include <Engine\Window.h>
-#include "Game.h"
+#include <Engine\WindowOPENGL.h>
+#include "GameTest1.h"
 
 int main(int argc, char* argv[]) {
 
-	Engine::Window* window = Engine::Window::getWindow();
+	Engine::Window* window = new Engine::WindowOPENGL();
 
 	window->initSystem();
 
@@ -16,17 +17,16 @@ int main(int argc, char* argv[]) {
 	std::cout << "Set difficulty [1-4]" << std::endl;
 	std::cin >> difficulty;
 
-	Game* game = new Game(difficulty);
+    Engine::Game* game = new GameTest1(difficulty);
 	game->init();
 
 	while (window->getGameState() != Engine::GameState::QUIT) {
 
-        Engine::Window::getWindow()->processEvent();
+        window->processEvent();
 
         // If enabled, do depth comparisons and update the depth buffer.
-		glEnable(GL_DEPTH_TEST);
-        // Clear the color and depth buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
+        window->clearRenderer();
 
 		window->calculateFrameTime();
 		window->calculateFPS();

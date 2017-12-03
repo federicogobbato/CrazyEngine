@@ -5,26 +5,14 @@
 
 namespace Engine {
 
-    enum fileExtension {
-        PNG,
-        JPG,
-        PBM
-    };
-
-    struct Texel {
-        char r, g, b, a;
-    };
-
     class Texture
     {
+    protected:
         GLuint m_ID;
         int m_Width;
         int m_Height;
 
-        void loadPNGTexture(const std::string& texturePath);
-        void loadPGMTexture(const std::string& texturePath);
-        void loadJPGTexture(const std::string& texturePath);
-
+        virtual void loadTexture(const std::string& texturePath) = 0;
     public:
 
         GLuint getID() const {
@@ -34,7 +22,20 @@ namespace Engine {
         Texture();
         ~Texture();
 
-        void loadData(const std::string& texturePath, fileExtension flag);
+        void loadData(const std::string& texturePath);
+    };
+
+
+    class TexturePNG : public Texture {
+        virtual void loadTexture(const std::string& texturePath);
+    };
+
+    class TexturePBM : public Texture {
+        virtual void loadTexture(const std::string& texturePath);
+    };
+
+    class TextureJPG : public Texture {
+        virtual void loadTexture(const std::string& texturePath);
     };
 
 }

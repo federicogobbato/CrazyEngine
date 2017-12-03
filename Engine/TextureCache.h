@@ -4,6 +4,13 @@
 
 namespace Engine {
 
+    enum fileExtension {
+        PNG,
+        JPG,
+        PBM,
+        SDL_IMAGE
+    };
+
     class TextureCache
     {
         static TextureCache* m_TextureCache;
@@ -17,6 +24,5 @@ namespace Engine {
         static TextureCache* getTextureCache();
         Texture* getTexture(std::string texturePath, fileExtension flag);
     };
-
 
 }
