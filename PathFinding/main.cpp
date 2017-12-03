@@ -1,17 +1,16 @@
 #define GLEW_STATIC
 
-#include <Engine\Window.h>
+#include <Engine\WindowSDL.h>
 
 #include "PathFinding.h"
 
 int main(int argc, char* argv[]) {
 
-    Engine::Window* window = Engine::Window::GetSingleton();
+    Engine::Window* window = new Engine::WindowSDL();
 
-    window->initSystem(1280, 720, 60, "PathFinding", Engine::SDL_Flags::SDL_RENDERER);
+    window->initSystem();
 
     Engine::Game* game = new PathFinding();
-
     game->init();
 
     while (window->getGameState() != Engine::GameState::QUIT) {

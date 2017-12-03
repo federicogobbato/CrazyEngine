@@ -7,8 +7,6 @@
 
 namespace Engine {
 
-	//Window* Window::m_Window = nullptr;
-
     Window::Window()
     {
         m_Display = new SDL_DisplayMode[SDL_GetNumVideoDisplays()];

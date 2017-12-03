@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Engine\TSingleton.h>
-#include <Engine\Window.h>
+#include <Engine\WindowOPENGL.h>
 #include <Engine\Game.h>
 #include <Engine\GLSLProgram.h>
 #include <Engine\Camera3D.h>
@@ -15,6 +15,8 @@
 
 class GameTest1 : public Game
 {
+    Engine::WindowOPENGL* m_Window;
+
 	Engine::GLSLProgram* m_CameraShader;
 	Camera3D* m_Camera;
 	Player* m_Player;

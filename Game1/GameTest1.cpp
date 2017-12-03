@@ -15,8 +15,9 @@ GameTest1::GameTest1(int difficulty) : m_EnemyStartPosition{ glm::vec3(0.0f, 0.0
 									m_PlayerDetroyed(false),
 									m_Difficulty(difficulty)
 {
+    m_Window = static_cast<WindowOPENGL*>(Window::GetSingleton());
 	m_CameraShader = new Engine::GLSLProgram;
-	m_Camera = new Camera3D(glm::vec3(0.0, 0.5, 1.0), Window::GetSingleton()->getScreenWidth(), Window::GetSingleton()->getScreenHeight());	
+	m_Camera = new Camera3D(glm::vec3(0.0, 0.5, 1.0), m_Window->getScreenWidth(), m_Window->getScreenHeight());	
 	m_SpaceShipMesh = new Mesh(TextureCache::getTextureCache()->getTexture("textures/dark_fighter_color.pbm", PBM));	
 }
 
@@ -67,7 +68,7 @@ void GameTest1::update()
 		int physicStep = 0;
 
 		// Every frame we update the position and check the collisions "MaxPhysicSteps" times
-		while (physicStep < Engine::Window::GetSingleton()->getMaxPhysicSteps() && !m_PlayerDetroyed)
+		while (physicStep < m_Window->getMaxPhysicSteps() && !m_PlayerDetroyed)
 		{
 			m_Player->update();
 
@@ -77,7 +78,7 @@ void GameTest1::update()
 
 			physicStep++;
 
-            Engine::Window::GetSingleton()->processEvent();
+            m_Window->processEvent();
 		}
 
 		if (currentTime - timerPrevSecond > 1000) {
@@ -118,12 +119,12 @@ void GameTest1::updateEnemies()
 	for (int i=0; i < m_ActiveEnemies.size() ; i++)
 	{
 		m_ActiveEnemies[i]->getElement()->move(glm::vec3(0.0, 0.0, 1.0) 
-												* Engine::Window::GetSingleton()->getFixedDeltaTime() * 0.01f);
+												* m_Window->getFixedDeltaTime() * 0.01f);
 		if (m_ActiveEnemies[i]->getElement()->getPosition().z > 1.0f) {
 			std::cout << "Main ship destroyed" << std::endl;
 			std::cout << "GAME OVER!!!!" << std::endl;
 			m_PlayerDetroyed = true;
-            //Engine::Window::GetSingleton()->setGameState(GameState::QUIT);
+            //m_Window->setGameState(GameState::QUIT);
             break;
 		}
 	}
@@ -164,7 +165,7 @@ void GameTest1::checkCollision()
             std::cout << "YOU are destroyed" << std::endl;
 			std::cout << "GAME OVER!!!!" << std::endl;
 			m_PlayerDetroyed = true;
-            //Engine::Window::GetSingleton()->setGameState(GameState::QUIT);
+            //m_Window->setGameState(GameState::QUIT);
             break;
 		}
 

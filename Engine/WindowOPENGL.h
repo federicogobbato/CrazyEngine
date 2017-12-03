@@ -12,12 +12,12 @@ namespace Engine {
 
     public:
 
-        void setVSync() {
+        void setVSync() override {
             if (m_GLContext)
                 SDL_GL_SetSwapInterval(1); // enabled      
         }
 
-        void disableVSync() {
+        void disableVSync() override {
             if (m_GLContext)
                 SDL_GL_SetSwapInterval(0); // disabled
         }
@@ -30,6 +30,8 @@ namespace Engine {
 
         void clearRenderer() override;
         void swapBuffer() override;
+
+
 
     };
 

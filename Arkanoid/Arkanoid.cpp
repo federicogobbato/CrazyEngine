@@ -1,6 +1,7 @@
 #include "Arkanoid.h"
 
 #include <Engine\ExtraFunctions.h>
+#include <Engine\Window.h>
 
 using namespace Engine;
 
@@ -9,6 +10,7 @@ Arkanoid::Arkanoid() :
     m_CurrentLevelNumber(1),
     m_MaxLevelNumber(2)
 {
+    m_Window = static_cast<WindowOPENGL*>(Window::GetSingleton());
 }
 
 Arkanoid::~Arkanoid()
@@ -21,7 +23,7 @@ Arkanoid::~Arkanoid()
 
 void Arkanoid::init()
 {
-    m_Camera.init((float)Window::GetSingleton()->getScreenWidth(), (float)Window::GetSingleton()->getScreenHeight());
+    m_Camera.init((float)m_Window->getScreenWidth(), (float)m_Window->getScreenHeight());
     initShaders();
     m_ActorsSpriteBatch.init();
     srand(time(0));
@@ -50,8 +52,8 @@ void Arkanoid::loadLevel(const std::string &levelPath, int levelNumber)
     {
         // Create a new level
         Level *newLevel = new Level();
-        newLevel->loadLevelMap(levelPath, Window::GetSingleton()->getScreenWidth(), Window::GetSingleton()->getScreenHeight());
-        newLevel->loadLevelElements(Window::GetSingleton()->getScreenWidth(), Window::GetSingleton()->getScreenHeight());
+        newLevel->loadLevelMap(levelPath, m_Window->getScreenWidth(), m_Window->getScreenHeight());
+        newLevel->loadLevelElements(m_Window->getScreenWidth(), m_Window->getScreenHeight());
         m_Levels[levelNumber] = newLevel;
         m_CurrentLevel = newLevel;
     }   
@@ -67,24 +69,24 @@ void Arkanoid::update()
     int physicStep = 0;
 
     // Every frame we update the position and check the collisions "MaxPhysicSteps" times
-    while (physicStep < Window::GetSingleton()->getMaxPhysicSteps())
+    while (physicStep < m_Window->getMaxPhysicSteps())
     {        
-        m_CurrentLevel->updateLevel(Window::GetSingleton()->getFixedDeltaTime());
+        m_CurrentLevel->updateLevel(m_Window->getFixedDeltaTime());
         physicStep++;
 
-        if (Window::GetSingleton()->getGameState() == GameState::NEXT_LEVEL)
+        if (m_Window->getGameState() == GameState::NEXT_LEVEL)
         {
             m_CurrentLevelNumber++;
             if (m_CurrentLevelNumber > m_MaxLevelNumber) {
                 m_CurrentLevelNumber = 1;
             }
             loadLevel("Levels/Level" + std::to_string(m_CurrentLevelNumber) + ".txt", m_CurrentLevelNumber);
-            Window::GetSingleton()->setGameState(GameState::PLAY);
+            m_Window->setGameState(GameState::PLAY);
             break;
         }
 
         // Update the Input Manager to build the map of the keys pressed the first physic step 
-        Window::GetSingleton()->processEvent();
+        m_Window->processEvent();
     }
 
     m_Camera.update();

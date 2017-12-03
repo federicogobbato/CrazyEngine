@@ -1,11 +1,13 @@
 #include "PathFinding.h"
 
 #include <SDL_image.h>
+#include <Engine\Window.h>
 
 using namespace Engine;
 
 PathFinding::PathFinding()
 {
+    m_Window = static_cast<WindowSDL*>(Window::GetSingleton());
 }
 
 
@@ -25,14 +27,12 @@ void PathFinding::init()
 }
 
 void PathFinding::render()
-{
-    SDL_Renderer* renderer = Window::GetSingleton()->getSDLRenderer();
+{   
+    m_Window->clearRenderer();
 
-    SDL_RenderClear(renderer); // clear the renderer to the draw color
-    
-    SDL_RenderCopy(renderer, m_Texture, &m_SourceRectangle, &m_DestinationRectangle);
+    SDL_RenderCopy(m_Window->getRenderer(), m_Texture, &m_SourceRectangle, &m_DestinationRectangle);
 
-    SDL_RenderPresent(renderer); // draw to the screen
+    m_Window->swapBuffer();
 }
 
 void PathFinding::update()
@@ -43,7 +43,7 @@ void PathFinding::update()
 void PathFinding::loadTexture() {
     SDL_Surface* tempSurface = IMG_Load("textures/kristina.jpg");
 
-    m_Texture = SDL_CreateTextureFromSurface(Window::getWindow()->getSDLRenderer(), tempSurface);
+    m_Texture = SDL_CreateTextureFromSurface(m_Window->getRenderer(), tempSurface);
 
     SDL_FreeSurface(tempSurface);
 }

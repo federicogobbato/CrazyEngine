@@ -1,26 +1,28 @@
 #pragma once
 
 #include <Engine\Game.h>
-#include <Engine\Window.h>
-#include <Engine\TSingleton.h>
+#include <Engine\WindowSDL.h>
 
-class PathFinding : public Engine::Game, TSingleton<PathFinding>
+
+class PathFinding : public Engine::Game
 {
+    Engine::WindowSDL* m_Window;
+
     SDL_Texture* m_Texture; // the new SDL_Texture variable
     SDL_Rect m_SourceRectangle; 
     SDL_Rect m_DestinationRectangle; 
 
     void loadTexture();
 
+    void render() override;
+
 public:
     PathFinding();
     ~PathFinding();
 
-    virtual void init();
+    void init() override;
 
-    virtual void update();
-
-    void render();
+    void update() override;
 
 };
 

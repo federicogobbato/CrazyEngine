@@ -51,11 +51,7 @@ namespace Engine {
 
         void getDisplayInfo();
 
-		//static Window* m_Window;
-
     public:
-
-		//static Window* getWindow();
 
         SDL_Window* getSDLWindow() const {
             return m_SDLWindow;
@@ -91,9 +87,6 @@ namespace Engine {
 			return m_maxPhysicSteps;
 		}     
 
-        virtual void setVSync() = 0;
-        virtual void disableVSync() = 0;
-
         Window();
         ~Window();
 
@@ -101,6 +94,9 @@ namespace Engine {
         virtual void quitSystem();
         virtual void clearRenderer() = 0;
         virtual void swapBuffer() = 0;
+
+        virtual void setVSync() = 0;
+        virtual void disableVSync() = 0;
 
 		void calculateFPS();
 		void showFPS();

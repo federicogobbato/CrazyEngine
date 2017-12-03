@@ -6,7 +6,7 @@
 #include <map>
 
 #include <Engine\TSingleton.h>
-#include <Engine\Window.h>
+#include <Engine\WindowOPENGL.h>
 #include <Engine\Game.h>
 #include <Engine\GLSLProgram.h>
 #include <Engine\Camera2D.h>
@@ -37,15 +37,15 @@ private:
 
     void setUniformShaderVariables();
 
-    int m_FPS;
     int m_CurrentLevelNumber;
     int m_MaxLevelNumber;
 
+    Engine::WindowOPENGL* m_Window;
     Engine::GLSLProgram m_TextureProgram; // The shader program
     Engine::SpriteBatch m_ActorsSpriteBatch; // Draws the Actors that need to be updated every frame
     Engine::Camera2D m_Camera; // Main Camera
 
     std::map<int, Level*> m_Levels;
-    Level *m_CurrentLevel;
+    Level* m_CurrentLevel;
 };
 
