@@ -16,7 +16,7 @@
 
 #include "Level.h"
 
-class Arkanoid : public Engine::Game 
+class Arkanoid : public Engine::Game, public Engine::TSingleton<Arkanoid>
 {
 public:
 

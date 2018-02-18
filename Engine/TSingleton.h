@@ -7,26 +7,35 @@ namespace Engine {
     {
         static T* m_istance;
 
+        //TSingleton() {}
+
     public:
 
         TSingleton() {
             if (m_istance == nullptr) {
                 //If the class T inherit TSingleton
                 m_istance = static_cast <T*> (this);
-            }
-        }
-
-        ~TSingleton() {
-            if (m_istance != nullptr) {
-                //delete m_istance; //this doesn't work 
-                m_istance = 0;
-            }
+            }   
         }
 
         static T* GetSingleton()
         {
             if (m_istance != nullptr) {
                 return m_istance;
+            }
+        }
+
+        //static T* GetSingleton()
+        //{
+        //    if (m_istance == nullptr) {
+        //        m_istance = new T();
+        //    }
+        //    return m_istance;
+        //}
+
+        ~TSingleton() {
+            if (m_istance != nullptr) {
+                m_istance = 0;
             }
         }
 

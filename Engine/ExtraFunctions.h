@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Window.h"
 #include "Game.h"
 #include "Texture.h" 
 
@@ -8,17 +9,7 @@
 
 namespace Engine {
 
-    template <class T>
-    void fatalError(std::string errorString, T* game)
-    {
-        std::cout << errorString << std::endl;
-        system("PAUSE");
-        delete game;
-        Window::GetSingleton()->quitSystem();
-        exit(1);
-    }
-
-    extern void fatalError(std::string errorString);
+    extern void fatalError(std::string errorString, Game* game = nullptr);
 
     extern bool fileExist(const std::string& dirName_in);
 

@@ -6,7 +6,7 @@
 
 namespace Engine {
 
-    class WindowSDL : public Window 
+    class WindowSDL : public Window
     {
         SDL_Renderer* m_Renderer;
 

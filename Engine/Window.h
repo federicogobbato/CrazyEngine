@@ -3,8 +3,8 @@
 #include <glew.h>
 #include <SDL.h>
 #include <string>
+
 #include "TSingleton.h"
-#include "Core.h"
 #include "InputManager.h"
 
 namespace Engine {
@@ -90,18 +90,18 @@ namespace Engine {
         Window();
         ~Window();
 
+        void initSDL();
         virtual SDL_Window* initSystem(int width= 1280, int height= 720, int desiredFPS= 60, std::string windowName= "test", unsigned int windowFlags = 0);
         virtual void quitSystem();
-        virtual void clearRenderer() = 0;
-        virtual void swapBuffer() = 0;
+        void calculateFPS();
+        void showFPS();
+        void calculateFrameTime();
+        void processEvent();
 
-        virtual void setVSync() = 0;
-        virtual void disableVSync() = 0;
-
-		void calculateFPS();
-		void showFPS();
-		void calculateFrameTime();
-		void processEvent();
+        virtual void clearRenderer() {};
+        virtual void swapBuffer() {};
+        virtual void setVSync() {};
+        virtual void disableVSync() {};
     };
 }
 

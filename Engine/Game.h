@@ -4,7 +4,7 @@
 
 namespace Engine {
 
-    class Game : public TSingleton<Game>
+    class Game 
     {
         virtual void render() = 0;
 

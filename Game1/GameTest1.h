@@ -13,7 +13,7 @@
 #include "Player.h"
 
 
-class GameTest1 : public Game
+class GameTest1 : public Game,  public TSingleton<GameTest1>
 {
     Engine::WindowOPENGL* m_Window;
 

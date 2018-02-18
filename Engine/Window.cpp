@@ -7,6 +7,15 @@
 
 namespace Engine {
 
+    void Window::initSDL()
+    {
+        // Initialize SDL
+        if (SDL_Init(SDL_INIT_EVERYTHING != 0)) {
+            std::cout << "SDL error: " << SDL_GetError() << std::endl;
+            fatalError("SDL could be inizialized");
+        }
+    }
+
     Window::Window()
     {
         m_Display = new SDL_DisplayMode[SDL_GetNumVideoDisplays()];
@@ -40,7 +49,7 @@ namespace Engine {
             fatalError("Window could not created");
         }
 
-        //getDisplayInfo();
+        getDisplayInfo();
 
         m_Width = width;
         m_Height = height;

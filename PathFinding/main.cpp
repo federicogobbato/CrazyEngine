@@ -1,7 +1,5 @@
-#define GLEW_STATIC
 
 #include <Engine\WindowSDL.h>
-
 #include "PathFinding.h"
 
 int main(int argc, char* argv[]) {
@@ -21,7 +19,6 @@ int main(int argc, char* argv[]) {
         window->showFPS();
 
         game->update();
-
     }
 
     window->quitSystem();

@@ -140,7 +140,6 @@
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
     <ClInclude Include="Collider2D.h" />
-    <ClInclude Include="Core.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="ExtraFunctions.h" />
     <ClInclude Include="Game.h" />
@@ -166,7 +165,6 @@
     <ClCompile Include="Camera2D.cpp" />
     <ClCompile Include="Camera3D.cpp" />
     <ClCompile Include="Collider2D.cpp" />
-    <ClCompile Include="Core.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="ExtraFunctions.cpp" />
     <ClCompile Include="GameObject.cpp" />

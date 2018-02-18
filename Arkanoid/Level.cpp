@@ -143,7 +143,7 @@ void Level::updateLevel(float deltaTime)
             break;
         case WINNER:
             m_LevelState = PAUSE_LEVEL;
-            Engine::Window::GetSingleton()->setGameState(Engine::GameState::NEXT_LEVEL);
+            Engine::WindowOPENGL::GetSingleton()->setGameState(Engine::GameState::NEXT_LEVEL);
             break;
     }
 }
