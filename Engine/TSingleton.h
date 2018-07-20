@@ -1,5 +1,6 @@
 #pragma once
 
+#include <assert.h>
 
 namespace Engine {
 
@@ -7,15 +8,14 @@ namespace Engine {
     {
         static T* m_istance;
 
-        //TSingleton() {}
+        TSingleton(const TSingleton<T>& copy) = delete;
+        TSingleton<T>& operator=(const TSingleton<T>& copy) = delete;
 
     public:
 
         TSingleton() {
-            if (m_istance == nullptr) {
-                //If the class T inherit TSingleton
-                m_istance = static_cast <T*> (this);
-            }   
+            assert(m_istance == nullptr);
+            m_istance = static_cast <T*> (this);
         }
 
         static T* GetSingleton()
@@ -25,14 +25,6 @@ namespace Engine {
             }
         }
 
-        //static T* GetSingleton()
-        //{
-        //    if (m_istance == nullptr) {
-        //        m_istance = new T();
-        //    }
-        //    return m_istance;
-        //}
-
         ~TSingleton() {
             if (m_istance != nullptr) {
                 m_istance = 0;
@@ -41,8 +33,7 @@ namespace Engine {
 
     };
 
-    template <typename T>
-    T* TSingleton <T>::m_istance = 0;
+    template <typename T> T* TSingleton <T>::m_istance = 0;
 
 }
 

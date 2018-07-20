@@ -10,7 +10,7 @@ namespace Engine {
     void Window::initSDL()
     {
         // Initialize SDL
-        if (SDL_Init(SDL_INIT_EVERYTHING != 0)) {
+        if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
             std::cout << "SDL error: " << SDL_GetError() << std::endl;
             fatalError("SDL could be inizialized");
         }
@@ -24,7 +24,8 @@ namespace Engine {
 
     Window::~Window()
     {
-        delete m_Display;
+        SDL_DestroyWindow(m_SDLWindow);
+        SDL_Quit();
     }
 
     SDL_Window* Window::initSystem(int width, int height, int desiredFPS, std::string windowName, unsigned int windowFlags) {
@@ -60,8 +61,7 @@ namespace Engine {
 
     void Window::quitSystem()
     {
-        SDL_DestroyWindow(m_SDLWindow);
-        SDL_Quit();
+        delete this;
     }
 
     void Window::calculateFPS()

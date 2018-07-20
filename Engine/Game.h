@@ -4,16 +4,15 @@
 
 namespace Engine {
 
-    class Game 
+    class Game : public TSingleton<Game>
     {
         virtual void render() = 0;
 
     public:
-
+        
         virtual void init() = 0;
-
         virtual void update() = 0;
-
+        virtual void quitGame() = 0;
     };
 
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Engine\TSingleton.h>
-#include <Engine\WindowOPENGL.h>
+#include <Engine\Window.h>
 #include <Engine\Game.h>
 #include <Engine\GLSLProgram.h>
 #include <Engine\Camera3D.h>
@@ -13,15 +13,15 @@
 #include "Player.h"
 
 
-class GameTest1 : public Game,  public TSingleton<GameTest1>
+class GameTest1 : public Game
 {
-    Engine::WindowOPENGL* m_Window;
+    Engine::Window* m_Window;
 
 	Engine::GLSLProgram* m_CameraShader;
-	Camera3D* m_Camera;
-	Player* m_Player;
-
-	Mesh* m_SpaceShipMesh;
+    Engine::Camera3D* m_Camera;
+	
+    Player* m_Player;
+    Engine::Mesh* m_SpaceShipMesh;
 	Engine::Pool<GameObject> m_Enemies;
 	std::vector<Engine::PoolObject<GameObject>*> m_ActiveEnemies;
 
@@ -46,7 +46,7 @@ public:
 	~GameTest1();
 
 	void init() override;
-
 	void update() override;
+    void quitGame() override;
 };
 

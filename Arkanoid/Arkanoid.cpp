@@ -93,6 +93,11 @@ void Arkanoid::update()
     render();
 }
 
+void Arkanoid::quitGame()
+{
+    delete this;
+}
+
 void Arkanoid::render()
 {
     m_TextureProgram.use();

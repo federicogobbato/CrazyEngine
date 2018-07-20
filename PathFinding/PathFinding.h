@@ -4,7 +4,7 @@
 #include <Engine\WindowSDL.h>
 
 
-class PathFinding : public Engine::Game, public Engine::TSingleton<PathFinding>
+class PathFinding : public Engine::GameSingleton<PathFinding>
 {
     Engine::WindowSDL* m_Window;
 

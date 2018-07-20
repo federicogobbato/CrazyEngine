@@ -30,12 +30,11 @@ namespace Engine {
 
     class Window : public TSingleton<Window>
     {
-
+        //friend class TSingleton<Window>;
     protected:
 
         SDL_Window* m_SDLWindow;
         SDL_DisplayMode* m_Display;
-
 		InputManager* m_InputManager;
 
         unsigned int m_WindowFlags;
@@ -46,8 +45,7 @@ namespace Engine {
 		int m_detectedFPS[100];
 		float m_frameTime = 0;
 		int m_maxPhysicSteps = 3;
-
-		GameState m_GameState = START;
+        GameState m_GameState = START;
 
         void getDisplayInfo();
 
@@ -98,10 +96,10 @@ namespace Engine {
         void calculateFrameTime();
         void processEvent();
 
-        virtual void clearRenderer() {};
-        virtual void swapBuffer() {};
-        virtual void setVSync() {};
-        virtual void disableVSync() {};
+        virtual void clearRenderer() = 0;
+        virtual void swapBuffer() = 0;
+        virtual void setVSync() = 0;
+        virtual void disableVSync() = 0;
     };
 }
 

@@ -8,7 +8,7 @@ int main(int argc, char* argv[]) {
 
     window->initSystem();
 
-    Engine::Game* game = new PathFinding();
+    Engine::GameSingleton<PathFinding>* game = new PathFinding();
     game->init();
 
     while (window->getGameState() != Engine::GameState::QUIT) {

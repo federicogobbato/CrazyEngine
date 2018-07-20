@@ -15,12 +15,11 @@ GameTest1::GameTest1(int difficulty) : m_EnemyStartPosition{ glm::vec3(0.0f, 0.0
 									m_PlayerDetroyed(false),
 									m_Difficulty(difficulty)
 {
-    m_Window = static_cast<WindowOPENGL*>(Window::GetSingleton());
+    m_Window = Window::GetSingleton();
 	m_CameraShader = new Engine::GLSLProgram;
 	m_Camera = new Camera3D(glm::vec3(0.0, 0.5, 1.0), m_Window->getScreenWidth(), m_Window->getScreenHeight());	
 	m_SpaceShipMesh = new Mesh(TextureCache::getTextureCache()->getTexture("textures/dark_fighter_color.pbm", PBM));	
 }
-
 
 GameTest1::~GameTest1()
 {
@@ -54,6 +53,10 @@ void GameTest1::init()
 		enemy->activateGameObject(false);
 		m_Enemies.addElement(enemy);
 	}
+}
+
+void GameTest1::quitGame() {
+    delete this;
 }
 
 void GameTest1::update()

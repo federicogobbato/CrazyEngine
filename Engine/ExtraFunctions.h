@@ -9,7 +9,7 @@
 
 namespace Engine {
 
-    extern void fatalError(std::string errorString, Game* game = nullptr);
+    extern void fatalError(std::string errorString);
 
     extern bool fileExist(const std::string& dirName_in);
 

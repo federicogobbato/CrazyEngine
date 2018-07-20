@@ -16,7 +16,7 @@
 
 #include "Level.h"
 
-class Arkanoid : public Engine::Game, public Engine::TSingleton<Arkanoid>
+class Arkanoid : public Engine::Game
 {
 public:
 
@@ -24,18 +24,16 @@ public:
     ~Arkanoid();
 
     void init() override;
-
     void update() override;
+    void quitGame() override;
 
 private:
 
     void initShaders();
-
+    void setUniformShaderVariables();
     void loadLevel(const std::string &levelPath, int levelNumber);
 
     void render() override;
-
-    void setUniformShaderVariables();
 
     int m_CurrentLevelNumber;
     int m_MaxLevelNumber;

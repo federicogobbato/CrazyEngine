@@ -23,11 +23,11 @@ namespace Engine {
         }
     }
 
-    void fatalError(std::string errorString, Game* game)
+    void fatalError(std::string errorString)
     {
         std::cout << errorString << std::endl;
         system("PAUSE");
-        delete game;
+        Game::GetSingleton()->quitGame();
         Window::GetSingleton()->quitSystem();
         exit(1);
     }

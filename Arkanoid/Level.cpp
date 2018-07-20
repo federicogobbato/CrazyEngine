@@ -4,6 +4,7 @@
 #include <fstream>
 
 #include <Engine\ExtraFunctions.h>
+#include <Engine\Game.h>
 #include "Arkanoid.h"
 
 Level::Level() :
@@ -40,7 +41,7 @@ void Level::loadLevelMap(const std::string &levelPath, const int & screenWidth, 
 {
     std::ifstream file(levelPath);
     if (file.fail()) {
-        Engine::fatalError("Failed to open " + levelPath, Arkanoid::GetSingleton());
+        Engine::fatalError("Failed to open " + levelPath);
     }
 
     std::string line;

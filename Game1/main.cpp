@@ -12,17 +12,16 @@ int main(int argc, char* argv[]) {
 
 	window->initSystem();
 
-	int difficulty;
+	int difficulty=4;
 
-	std::cout << "Set difficulty [1-4]" << std::endl;
-	std::cin >> difficulty;
+	//std::cout << "Set difficulty [1-4]" << std::endl;
+	//std::cin >> difficulty;
 
     Engine::Game* game = new GameTest1(difficulty);
 	game->init();
+    std::cout << "Game Start" << std::endl;
 
 	while (window->getGameState() != Engine::GameState::QUIT) {
-
-        window->processEvent();
 
         // If enabled, do depth comparisons and update the depth buffer.
         glEnable(GL_DEPTH_TEST);
@@ -35,10 +34,11 @@ int main(int argc, char* argv[]) {
 		game->update();
         // Swap our buffer and draw everything to the screen
         window->swapBuffer(); 
+
+        window->processEvent();
 	}
 
-	delete game;
-	window->quitSystem();
-
-	return 0;
+	delete dynamic_cast<GameTest1*>(game);
+    delete dynamic_cast<Engine::WindowOPENGL*>(window);
+    return 0;
 }
