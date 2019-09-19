@@ -4,7 +4,7 @@
 #include <Engine\WindowSDL.h>
 
 
-class PathFinding : public Engine::GameSingleton<PathFinding>
+class PathFinding : public Engine::TSingleton<PathFinding>
 {
     Engine::WindowSDL* m_Window;
 
@@ -14,15 +14,15 @@ class PathFinding : public Engine::GameSingleton<PathFinding>
 
     void loadTexture();
 
-    void render() override;
+    void render();
 
 public:
     PathFinding();
     ~PathFinding();
 
-    void init() override;
+    void init();
 
-    void update() override;
+    void update();
 
 };
 

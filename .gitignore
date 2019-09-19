@@ -28,3 +28,5 @@ Debug/PathFinding.lib
 Debug/Game1.lib
 Debug/Engine.lib
 Debug/Arkanoid.lib
+.vs/CrazyEngine/v15/ipch/AutoPCH/
+.vs/CrazyEngine/v15/

@@ -8,8 +8,8 @@ int main(int argc, char* argv[]) {
 
     window->initSystem();
 
-    Engine::GameSingleton<PathFinding>* game = new PathFinding();
-    game->init();
+    Engine::TSingleton<PathFinding>* game = new PathFinding();
+    game->GetSingleton()->init();
 
     while (window->getGameState() != Engine::GameState::QUIT) {
 
@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
         window->calculateFPS();
         window->showFPS();
 
-        game->update();
+		game->GetSingleton()->update();
     }
 
     window->quitSystem();
