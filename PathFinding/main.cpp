@@ -4,24 +4,24 @@
 
 int main(int argc, char* argv[]) {
 
-    Engine::Window* window = new Engine::WindowSDL();
+	Engine::Window* window = new Engine::WindowSDL();
 
-    window->initSystem();
+	window->initSystem();
 
-    Engine::TSingleton<PathFinding>* game = new PathFinding();
-    game->GetSingleton()->init();
+	Engine::TSingleton<PathFinding>* game = new PathFinding();
+	game->GetSingleton()->init();
 
-    while (window->getGameState() != Engine::GameState::QUIT) {
+	while (window->getGameState() != Engine::GameState::QUIT) {
 
-        window->processEvent();
+		window->processEvent();
 
-        window->calculateFPS();
-        window->showFPS();
+		window->calculateFPS();
+		window->showFPS();
 
 		game->GetSingleton()->update();
-    }
+	}
 
-    window->quitSystem();
+	window->quitSystem();
 
-    return 0;
+	return 0;
 }

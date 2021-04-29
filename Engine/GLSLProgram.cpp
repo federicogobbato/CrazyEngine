@@ -97,7 +97,6 @@ namespace Engine {
         if (!shaderCompilationChecking(shaderID)) {
             std::cout << "Shader " + shaderFilePath + " failed to compile" << std::endl;
         }
-
     }
 
 
