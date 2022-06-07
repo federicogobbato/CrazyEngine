@@ -56,7 +56,7 @@ void Player::init(Engine::GLSLProgram* shader, int nBullets)
 	GameObject::setScale(glm::vec3(0.01f, 0.01f, 0.01f));
 	GameObject::setRotation(glm::vec3(0.0f, 1.0f, 0.0f), -90);
 	
-	m_Cube = new Cube(TextureCache::getTextureCache()->getTexture("textures/ronnie.jpg", fileExtension::JPG));
+	m_Cube = new Cube(TextureCache::getTextureCache()->getTexture("textures/quadrato_rosso.png", fileExtension::PNG));
 	m_Cube->Init(shader);
 
 	for (int i = 0; i < nBullets; i++) {

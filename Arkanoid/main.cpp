@@ -16,18 +16,14 @@ int main(int argc, char* argv[]) {
     Engine::Game* game = new Arkanoid();
     game->init();
 
-    while (window->getGameState() != Engine::GameState::QUIT) {
-
-        window->processEvent();
+    while (window->processEvent() && window->getGameState() != Engine::GameState::QUIT)
+    {
         window->clearRenderer();
-
         window->calculateFrameTime();
         window->calculateFPS();
         window->showFPS();
-
         game->update();
-        // Swap our buffer and draw everything to the screen
-        window->swapBuffer();
+        window->swapBuffer();       
     }
 
     delete game;

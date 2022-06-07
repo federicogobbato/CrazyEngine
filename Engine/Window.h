@@ -94,7 +94,7 @@ namespace Engine {
         void calculateFPS();
         void showFPS();
         void calculateFrameTime();
-        void processEvent();
+        bool processEvent();
 
         virtual void clearRenderer() = 0;
         virtual void swapBuffer() = 0;

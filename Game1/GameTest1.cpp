@@ -168,7 +168,7 @@ void GameTest1::checkCollision()
             std::cout << "YOU are destroyed" << std::endl;
 			std::cout << "GAME OVER!!!!" << std::endl;
 			m_PlayerDetroyed = true;
-            //m_Window->setGameState(GameState::QUIT);
+            m_Window->setGameState(GameState::QUIT);
             break;
 		}
 

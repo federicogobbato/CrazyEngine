@@ -13,7 +13,7 @@
 #include "Player.h"
 
 
-class GameTest1 : public Game
+class GameTest1 : public Game 
 {
     Engine::Window* m_Window;
 

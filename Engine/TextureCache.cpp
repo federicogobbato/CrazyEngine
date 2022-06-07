@@ -44,9 +44,9 @@ namespace Engine {
                 case PNG:
                     newTexture = new TexturePNG;
                     break;
-                case JPG:
-                    newTexture = new TextureJPG;
-                    break;
+                ////case JPG:
+                ////    newTexture = new TextureJPG;
+                ////    break;
                 case PBM:
                     newTexture = new TexturePBM;
                     break;

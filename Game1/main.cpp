@@ -21,21 +21,17 @@ int main(int argc, char* argv[]) {
 	game->init();
     std::cout << "Game Start" << std::endl;
 
-	while (window->getGameState() != Engine::GameState::QUIT) {
-
-        // If enabled, do depth comparisons and update the depth buffer.
-        glEnable(GL_DEPTH_TEST);
-        window->clearRenderer();
-
+	while (window->processEvent() && window->getGameState() != Engine::GameState::QUIT)
+	{
+		// If enabled, do depth comparisons and update the depth buffer.
+		glEnable(GL_DEPTH_TEST);
+		window->clearRenderer();
 		window->calculateFrameTime();
 		window->calculateFPS();
-		//window->showFPS();
-
+		window->showFPS();
 		game->update();
-        // Swap our buffer and draw everything to the screen
-        window->swapBuffer(); 
-
-        window->processEvent();
+		// Swap our buffer and draw everything to the screen
+		window->swapBuffer();	
 	}
 
 	delete dynamic_cast<GameTest1*>(game);

@@ -108,7 +108,7 @@ namespace Engine {
         Timer = currentTimer;      
 	}
 
-	void Window::processEvent()
+	bool Window::processEvent()
 	{
 		// Update the map of the keys pressed the previus frame 
 		m_InputManager->update();
@@ -137,6 +137,8 @@ namespace Engine {
 				break;
 			}
 		}
+
+        return m_GameState != QUIT;
 	}
 
     void Window::getDisplayInfo()

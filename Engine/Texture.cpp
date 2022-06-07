@@ -1,7 +1,7 @@
 #include "Texture.h"
 
 #include <vector>
-#include <SOIL.h>
+////#include <SOIL.h>
 #include <fstream>
 
 #include "picoPNG.h"
@@ -42,12 +42,12 @@ namespace Engine {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    void TextureJPG::loadTexture(const std::string & texturePath)
-    {
-        unsigned char* image = SOIL_load_image(&texturePath[0], &m_Width, &m_Height, 0, SOIL_LOAD_RGB);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-        SOIL_free_image_data(image);
-    }
+    ////void TextureJPG::loadTexture(const std::string & texturePath)
+    ////{
+    ////    unsigned char* image = SOIL_load_image(&texturePath[0], &m_Width, &m_Height, 0, SOIL_LOAD_RGB);
+    ////    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+    ////    SOIL_free_image_data(image);
+    ////}
 
     void TexturePNG::loadTexture(const std::string& texturePath) {
 
