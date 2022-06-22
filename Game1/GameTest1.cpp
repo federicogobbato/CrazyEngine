@@ -4,7 +4,8 @@
 #include <gtc/type_ptr.hpp>
 #include <gtc/random.hpp>
 
-#include <Engine\GOmanager.h>
+#include <thread>
+#include <mutex>
 
 using namespace Engine;
 
@@ -15,7 +16,7 @@ GameTest1::GameTest1(int difficulty) : m_EnemyStartPosition{ glm::vec3(0.0f, 0.0
 									m_PlayerDetroyed(false),
 									m_Difficulty(difficulty)
 {
-    m_Window = Window::GetSingleton();
+    m_Window = Window::getSingleton();
 	m_CameraShader = new Engine::GLSLProgram;
 	m_Camera = new Camera3D(glm::vec3(0.0, 0.5, 1.0), m_Window->getScreenWidth(), m_Window->getScreenHeight());	
 	m_SpaceShipMesh = new Mesh(TextureCache::getTextureCache()->getTexture("textures/dark_fighter_color.pbm", PBM));	
@@ -39,14 +40,16 @@ void GameTest1::init()
 
 	CompileShaders();
 
-	if (m_SpaceShipMesh->loadMesh("meshes/dark_fighter_6.obj")) {
-		m_SpaceShipMesh->loadGPUMesh(m_CameraShader);
+	if (m_SpaceShipMesh->readMeshFile("meshes/dark_fighter_6.obj")) 
+	{
+		m_SpaceShipMesh->createGPUMesh(m_CameraShader);
 	}
 
 	m_Player = new Player(m_SpaceShipMesh);
 	m_Player->init(m_CameraShader, 5);
 
-	for (int i = 0; i < 30; i++) {
+	for (int i = 0; i < 30; i++) 
+	{
 		GameObject* enemy = new GameObject(m_SpaceShipMesh);
 		enemy->setScale(glm::vec3(0.01f, 0.01f, 0.01f));
 		enemy->setRotation(glm::vec3(0.0f, 1.0f, 0.0f), 90);
@@ -64,34 +67,50 @@ void GameTest1::update()
 	static int timerAtBegin = SDL_GetTicks();
 	static int timerPrevSecond = timerAtBegin;
 
-	int currentTime = SDL_GetTicks();
-
     if (!m_PlayerDetroyed)
 	{
+		int currentTime = SDL_GetTicks();
 		int physicStep = 0;
 
 		// Every frame we update the position and check the collisions "MaxPhysicSteps" times
-		while (physicStep < m_Window->getMaxPhysicSteps() && !m_PlayerDetroyed)
+		while (physicStep < m_Window->getMaxPhysicSteps())
 		{
+			if (!m_Window->processEvent())
+				return;			
+
 			m_Player->update();
-
 			updateEnemies();
-
-			checkCollision();           
-
+			checkCollision();
 			physicStep++;
-
-            m_Window->processEvent();
 		}
 
-		if (currentTime - timerPrevSecond > 1000) {
-			std::cout << "Time: " << currentTime / 1000 << std::endl;
+		//! If I want to use multithreading I should delay the render of one frame.
+		//! So run the gameplay thread and save the data the graphic thread need.
+		//! Then run simultanelly gameplay and graphic thread on different data. 
+
+		render();
+		// Swap our buffer and draw everything to the screen
+		m_Window->swapBuffer();
+
+		// Dislay how many ships are destroyed
+		if (currentTime - timerPrevSecond > 1000) 
+		{
 			std::cout << "Destroyed Enemy Ships: " << m_nDestroyedEnemies << std::endl << std::endl;
 			timerPrevSecond = currentTime;
 		}
-	}
 
-    render();
+		if (SDL_GL_GetSwapInterval() == 0)
+		{
+			float frameDuration = SDL_GetTicks() - currentTime;
+			float maxFrameTime = 1000 / m_Window->m_MAXFPS;
+			float delay = maxFrameTime - frameDuration;
+
+			if (frameDuration < maxFrameTime)
+			{
+				SDL_Delay(delay);
+			}
+		}
+	}
 }
 
 void GameTest1::updateEnemies()
@@ -121,13 +140,12 @@ void GameTest1::updateEnemies()
 
 	for (int i=0; i < m_ActiveEnemies.size() ; i++)
 	{
-		m_ActiveEnemies[i]->getElement()->move(glm::vec3(0.0, 0.0, 1.0) 
-												* m_Window->getFixedDeltaTime() * 0.01f);
+		m_ActiveEnemies[i]->getElement()->move(glm::vec3(0.0, 0.0, 1.0) * m_Window->getFixedDeltaTime() * 0.01f);
 		if (m_ActiveEnemies[i]->getElement()->getPosition().z > 1.0f) {
 			std::cout << "Main ship destroyed" << std::endl;
 			std::cout << "GAME OVER!!!!" << std::endl;
 			m_PlayerDetroyed = true;
-            //m_Window->setGameState(GameState::QUIT);
+            m_Window->setGameState(GameState::QUIT);
             break;
 		}
 	}
@@ -165,7 +183,7 @@ void GameTest1::checkCollision()
 	for (int i = 0; i < m_ActiveEnemies.size(); i++)
 	{
 		if (m_Player->checkCollision(m_ActiveEnemies[i]->getElement())) {
-            std::cout << "YOU are destroyed" << std::endl;
+            std::cout << "You are destroyed" << std::endl;
 			std::cout << "GAME OVER!!!!" << std::endl;
 			m_PlayerDetroyed = true;
             m_Window->setGameState(GameState::QUIT);

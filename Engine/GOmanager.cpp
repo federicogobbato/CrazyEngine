@@ -1,7 +1,7 @@
 
 #include "GOmanager.h"
+
 #include <gtc/type_ptr.hpp>
-#include "GameObject.h"
 
 namespace Engine {
 
@@ -33,7 +33,7 @@ namespace Engine {
         m_nGameObjectsCreated--;
     }
 
-    void GOmanager::drawGameObjects(Engine::GLSLProgram* shader) {
+    void GOmanager::drawGameObjects(GLSLProgram* shader) {
 
         // Updates the Model Matrix of every gameobject 
         // and we build the array of matrices to pass to the vertex shader

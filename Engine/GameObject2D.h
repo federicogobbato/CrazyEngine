@@ -1,10 +1,6 @@
 #pragma once
 
-#include <string>
-#include <glm.hpp>
-
-#include "SpriteBatch.h"
-#include "TextureCache.h"
+#include "CoreMinimal.h"
 
 namespace Engine {
 
@@ -12,7 +8,7 @@ namespace Engine {
     {
     public:
         GameObject2D(glm::vec2 position, int depth, std::string texturePath, fileExtension textureFormat,
-                    glm::vec2 size, ColorRGBA8 color = defaultColor());
+                    glm::vec2 size, ColorRGBA8 color = ColorRGBA8::defaultColor());
         ~GameObject2D();
 
         GameObject2D(const GameObject2D &copy);
@@ -45,7 +41,7 @@ namespace Engine {
         glm::vec2 m_UVsize;
         ColorRGBA8 m_Color;
         float m_Depth;
-        Texture* m_Texture;
+        class Texture* m_Texture;
 
         std::string m_TexturePath;
         fileExtension m_TextureFormat;

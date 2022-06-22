@@ -1,7 +1,6 @@
 #pragma once
 
-#include <Engine\GameObject2D.h>
-#include <Engine\Collider2D.h>
+#include <Engine\CoreMinimal.h>
 
 class ActorGame : public Engine::GameObject2D
 

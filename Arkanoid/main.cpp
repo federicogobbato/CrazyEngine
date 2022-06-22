@@ -11,23 +11,21 @@ int main(int argc, char* argv[]) {
 
     window->initSystem();
 
-    //window->disableVSync();
+    window->disableVSync();
 
     Engine::Game* game = new Arkanoid();
     game->init();
 
-    while (window->processEvent() && window->getGameState() != Engine::GameState::QUIT)
+    while (window->getGameState() != Engine::GameState::QUIT)
     {
+        window->calculateFixedDeltaTime();
         window->clearRenderer();
-        window->calculateFrameTime();
-        window->calculateFPS();
-        window->showFPS();
         game->update();
-        window->swapBuffer();       
+        window->showFPS();
     }
 
     delete game;
-    window->quitSystem();
+    delete window;
 
     return 0;
 }

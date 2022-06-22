@@ -1,18 +1,8 @@
 #pragma once
 
-#include <SDL.h>
-#include <iostream>
 #include <ctime>
-#include <map>
-
-#include <Engine\TSingleton.h>
+#include <Engine\CoreMinimal.h>
 #include <Engine\WindowOPENGL.h>
-#include <Engine\Game.h>
-#include <Engine\GLSLProgram.h>
-#include <Engine\Camera2D.h>
-#include <Engine\SpriteBatch.h>
-#include <Engine\Vertex.h>
-#include <Engine\GameObject2D.h>
 
 #include "Level.h"
 
@@ -21,7 +11,7 @@ class Arkanoid : public Engine::Game
 public:
 
     Arkanoid();
-    ~Arkanoid();
+    virtual ~Arkanoid() override;
 
     void init() override;
     void update() override;

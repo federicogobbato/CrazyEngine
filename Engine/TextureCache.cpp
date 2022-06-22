@@ -1,7 +1,5 @@
 #include "TextureCache.h"
 
-#include <iostream>
-#include "ExtraFunctions.h"
 
 namespace Engine {
 
@@ -44,9 +42,11 @@ namespace Engine {
                 case PNG:
                     newTexture = new TexturePNG;
                     break;
-                ////case JPG:
-                ////    newTexture = new TextureJPG;
-                ////    break;
+                case JPG:
+                    fatalError("jpg not supported at the moment");
+                    break;
+                    ////    newTexture = new TextureJPG;
+                    ////    break;
                 case PBM:
                     newTexture = new TexturePBM;
                     break;

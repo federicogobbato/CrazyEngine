@@ -1,13 +1,12 @@
 #pragma once
 
-#include <vector>
-#include <glm.hpp>
-#include "Vertex.h"
+#include "CoreMinimal.h"
 
 namespace Engine {
 
     // Determines how we should sort the glyphs
-    enum class GlyphSortType {
+    enum class GlyphSortType 
+    {
         NONE,
         FRONT_TO_BACK,
         BACK_TO_FRONT,
@@ -16,8 +15,8 @@ namespace Engine {
 
 
     //Single Sprite
-    struct Glyph {
-
+    struct Glyph 
+    {
         Glyph() {};
         Glyph(const glm::vec2& position, const glm::vec2& size,
                 const glm::vec2& UV, const glm::vec2& UVsize, 
@@ -51,7 +50,8 @@ namespace Engine {
     };
 
 
-    class RenderBatch {
+    class RenderBatch 
+    {
     public:
         RenderBatch(GLuint offset, GLuint numVertex, GLuint texture) : 
             m_Offset(offset), m_NumVertex(numVertex), m_Texture(texture)

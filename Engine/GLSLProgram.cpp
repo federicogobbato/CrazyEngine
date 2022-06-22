@@ -1,9 +1,6 @@
 
 #include "GLSLProgram.h"
 
-#include <fstream>
-#include <iostream>
-#include <vector>
 
 namespace Engine {
 

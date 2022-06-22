@@ -1,8 +1,6 @@
 #pragma once
 
-#include <SDL.h>
-
-#include "Window.h"
+#include "CoreMinimal.h"
 
 namespace Engine {
 
@@ -13,7 +11,6 @@ namespace Engine {
     public:
 
         SDL_Window* initSystem(int width, int height, int desiredFPS, std::string windowName, unsigned int windowFlags) override;
-        void quitSystem() override;
 
         void clearRenderer() override;
         void swapBuffer() override;
@@ -25,8 +22,7 @@ namespace Engine {
             return m_Renderer;
         };
 
-        WindowSDL();
-        ~WindowSDL();
+        virtual ~WindowSDL() override;
     };
 
 }

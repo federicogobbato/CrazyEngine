@@ -1,6 +1,5 @@
 #include "PlayerArk.h"
 
-#include <SDL.h>
 #include "Level.h"
 
 PlayerArk::PlayerArk(glm::vec2 position, int depth, 

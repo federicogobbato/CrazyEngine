@@ -1,12 +1,7 @@
 #pragma once 
 
+#include "CoreMinimal.h"
 
-#include <iostream>
-#include <glew.h>
-#include <glm.hpp>
-#include "GLSLProgram.h"
-#include "Vertex.h"
-#include "Texture.h"
 
 namespace Engine {
 
@@ -19,7 +14,7 @@ namespace Engine {
         Texture* m_Texture;
         Texture* m_SecondTexture;
 
-        void alternateSprites(Engine::GLSLProgram* shaderProgram, float time);
+        void alternateSprites(GLSLProgram* shaderProgram, float time);
 
     public:
 
@@ -30,8 +25,8 @@ namespace Engine {
         Sprite(Texture* texture, float x = -0.5, float y = -0.5, float width = 1, float height = 1);
         ~Sprite();
 
-        void Init(Engine::GLSLProgram* shaderProgram);
+        void Init(GLSLProgram* shaderProgram);
 
-        void draw(Engine::GLSLProgram* shaderProgram, float time = 1.0f);
+        void draw(GLSLProgram* shaderProgram, float time = 1.0f);
     };
 }

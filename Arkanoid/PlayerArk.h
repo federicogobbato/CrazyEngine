@@ -1,9 +1,6 @@
 #pragma once
 
-#include <Engine\InputManager.h>
-
 #include "ActorGame.h"
-
 
 class PlayerArk : public ActorGame
 {

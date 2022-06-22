@@ -12,6 +12,8 @@ int main(int argc, char* argv[]) {
 
 	window->initSystem();
 
+	window->disableVSync();
+
 	int difficulty=4;
 
 	//std::cout << "Set difficulty [1-4]" << std::endl;
@@ -21,20 +23,18 @@ int main(int argc, char* argv[]) {
 	game->init();
     std::cout << "Game Start" << std::endl;
 
-	while (window->processEvent() && window->getGameState() != Engine::GameState::QUIT)
+	// If enabled, do depth comparisons and update the depth buffer
+	glEnable(GL_DEPTH_TEST);
+
+	while (window->getGameState() != Engine::GameState::QUIT)
 	{
-		// If enabled, do depth comparisons and update the depth buffer.
-		glEnable(GL_DEPTH_TEST);
+		window->calculateFixedDeltaTime();
 		window->clearRenderer();
-		window->calculateFrameTime();
-		window->calculateFPS();
-		window->showFPS();
 		game->update();
-		// Swap our buffer and draw everything to the screen
-		window->swapBuffer();	
+		window->showFPS();
 	}
 
-	delete dynamic_cast<GameTest1*>(game);
-    delete dynamic_cast<Engine::WindowOPENGL*>(window);
+	delete game;
+	delete window;
     return 0;
 }

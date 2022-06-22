@@ -1,7 +1,5 @@
 #include "Arkanoid.h"
 
-#include <Engine\ExtraFunctions.h>
-#include <Engine\Window.h>
 
 using namespace Engine;
 
@@ -10,7 +8,7 @@ Arkanoid::Arkanoid() :
     m_CurrentLevelNumber(1),
     m_MaxLevelNumber(2)
 {
-    m_Window = static_cast<WindowOPENGL*>(Window::GetSingleton());
+    m_Window = static_cast<WindowOPENGL*>(Window::getSingleton());
 }
 
 Arkanoid::~Arkanoid()
@@ -61,36 +59,36 @@ void Arkanoid::loadLevel(const std::string &levelPath, int levelNumber)
 
 void Arkanoid::update()
 {
-    static int timerAtBegin = SDL_GetTicks();
-    static int timerPrevSecond = timerAtBegin;
-
-    int currentTime = SDL_GetTicks();
-
     int physicStep = 0;
 
     // Every frame we update the position and check the collisions "MaxPhysicSteps" times
     while (physicStep < m_Window->getMaxPhysicSteps())
     {        
-        m_CurrentLevel->updateLevel(m_Window->getFixedDeltaTime());
         physicStep++;
+
+        // Update the Input Manager to build the map of the keys pressed the first physic step 
+        if (!m_Window->processEvent())
+            return;
+
+        m_CurrentLevel->updateLevel(m_Window->getFixedDeltaTime());
 
         if (m_Window->getGameState() == GameState::NEXT_LEVEL)
         {
             m_CurrentLevelNumber++;
-            if (m_CurrentLevelNumber > m_MaxLevelNumber) {
+            if (m_CurrentLevelNumber > m_MaxLevelNumber) 
+            {
                 m_CurrentLevelNumber = 1;
             }
+
             loadLevel("Levels/Level" + std::to_string(m_CurrentLevelNumber) + ".txt", m_CurrentLevelNumber);
             m_Window->setGameState(GameState::PLAY);
             break;
         }
-
-        // Update the Input Manager to build the map of the keys pressed the first physic step 
-        m_Window->processEvent();
     }
 
     m_Camera.update();
     render();
+    m_Window->swapBuffer();
 }
 
 void Arkanoid::quitGame()

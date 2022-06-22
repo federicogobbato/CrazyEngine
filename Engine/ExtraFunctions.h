@@ -1,11 +1,6 @@
 #pragma once
 
-#include "Window.h"
-#include "Game.h"
-#include "Texture.h" 
-
-#include <string>
-#include <vector>
+#include "CoreMinimal.h"
 
 namespace Engine {
 
@@ -15,5 +10,5 @@ namespace Engine {
 
     extern bool readFileToBuffer(const std::string filePath, std::vector<unsigned char> &buffer);
 
-    //extern float calculateFPS(float prevTicks);
+    //extern float startCalculateFPS(float prevTicks);
 }

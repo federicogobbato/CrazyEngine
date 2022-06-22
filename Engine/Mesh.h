@@ -1,40 +1,28 @@
 #pragma once
 
-#include <vector>
-#include <glm.hpp>
-#include "GLSLProgram.h"
-#include "TextureCache.h"
-#include "Texture.h"
+#include "CoreMinimal.h"
+
 
 namespace Engine {
 
-    struct VertexMesh {
-        glm::vec3 pos;
-        glm::vec3 norm;
-        glm::vec2 uv;
-    };
-
-    struct Triangle {
-        int i, j, k;
-        Triangle(int _i, int _j, int _k) :i(_i), j(_j), k(_k) {}
-    };
-
     class Mesh
     {
-        std::vector<VertexMesh> m_Vertices;
-        std::vector<Triangle> m_Triangles;
+        Vertex3D* m_Vertices;
+        Triangle* m_Triangles;
 
-        GLuint m_VBO; //Vertex Buffer Object
-        GLuint m_VAO; //Vertex Array Object
-        GLuint m_EBO; //Element array
+        GLuint m_VBO; // Vertex Buffer Object
+        GLuint m_VAO; // Vertex Array Object
+        GLuint m_EBO; // Element array
 
         Texture* m_Texture;
 
-        int m_nElements;
+        int m_nVertexTexture;
+        int m_nTriangles;
 
         glm::vec3 m_MaxSize;
 
     public:
+
         Mesh();
         Mesh(Texture* texture);
         ~Mesh();
@@ -48,9 +36,9 @@ namespace Engine {
             return m_MaxSize;
         }
 
-        bool loadMesh(const char* path);
+        bool readMeshFile(const char* path);
 
-        void loadGPUMesh(Engine::GLSLProgram* shaderProgram);
+        void createGPUMesh(GLSLProgram* shaderProgram);
 
         void drawMesh();
 

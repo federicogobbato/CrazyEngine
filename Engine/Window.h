@@ -1,105 +1,98 @@
 #pragma once
 
-#include <glew.h>
-#include <SDL.h>
-#include <string>
+#include "CoreMinimal.h"
 
-#include "TSingleton.h"
-#include "InputManager.h"
-
-namespace Engine {
-
-    enum WindowFlags {
-        INVISIBLE = 0x1,
-        FULLSCREEN = 0x2,
-        BORDERLESS = 0x4,
-    };
-
-    enum SDL_Flags {
-        OPENGL_CONTEXT = 0X1,
-        SDL_RENDERER = 0X2,
-    };
-
-	enum GameState {
-		START,
-		QUIT,
-        PLAY,
-        PAUSE,
-        NEXT_LEVEL
-	};
-
+namespace Engine 
+{
     class Window : public TSingleton<Window>
     {
-        //friend class TSingleton<Window>;
+
     protected:
 
         SDL_Window* m_SDLWindow;
         SDL_DisplayMode* m_Display;
 		InputManager* m_InputManager;
 
+        /* Used to specify some window preference */
         unsigned int m_WindowFlags;
+
         int m_Width;
         int m_Height;
-		int m_desiredFPS;
-		int m_currentFPS = 0;
-		int m_detectedFPS[100];
-		float m_frameTime = 0;
-		int m_maxPhysicSteps = 3;
+
+		int m_DesiredFPS;
+
+        bool m_ShowFPS = true;
+
+        /*Last 60 frames time in nanoseconds */
+        long long m_LastSixtyFrameTime = 0;
+
+        /*Number of frames detected (used to calculate the FPS)*/
+		int m_FramesDetected = 0;
+
+        /*Duretion of a frame (used to to calculate DeltaTime)*/
+		float m_FixedDeltaTime = 0;
+
+        /*Times physics, gameplay and inputs are updated every frame*/
+		int m_MaxPhysicSteps = 3;
+
         GameState m_GameState = START;
 
         void getDisplayInfo();
 
     public:
 
-        SDL_Window* getSDLWindow() const {
-            return m_SDLWindow;
-        }
 
-        int getMonitoRefreshRate() {
-            return m_Display[0].refresh_rate;
-        }
+        const float m_MAXFPS = 1000.0f;
 
-        int getScreenWidth() {
-            return m_Width;
-        }
-
-        int getScreenHeight() {
-            return m_Height;
-        }
-
-		GameState getGameState() {
-			return m_GameState;
-		}
-
-        void setGameState(GameState gameState) {
-            m_GameState = gameState;
-        }
-
-		float getFixedDeltaTime() {
-            const float DESIRED_FRAMETIME = 1000.0f / m_desiredFPS;
-            float currentDeltaTime = m_frameTime / DESIRED_FRAMETIME;
-			return currentDeltaTime / m_maxPhysicSteps;
-		}
-
-		int getMaxPhysicSteps() {
-			return m_maxPhysicSteps;
-		}     
-
-        Window();
-        ~Window();
-
+        /* Initialize the SDL */
         void initSDL();
+
+        /* Create thw window */
         virtual SDL_Window* initSystem(int width= 1280, int height= 720, int desiredFPS= 60, std::string windowName= "test", unsigned int windowFlags = 0);
+        
         virtual void quitSystem();
-        void calculateFPS();
-        void showFPS();
-        void calculateFrameTime();
+
+        /*Update Input */
         bool processEvent();
 
+        /*Save the duration of the last frame time*/
+        void calculateFixedDeltaTime();
+
+        /*If 60 frames time are saved calculate the average fps*/
+        void showFPS();
+
+        virtual ~Window();
+
+        //! PURE VIRTUAL METHODS
         virtual void clearRenderer() = 0;
         virtual void swapBuffer() = 0;
         virtual void setVSync() = 0;
         virtual void disableVSync() = 0;
+
+#pragma region SET&GET
+
+        inline struct SDL_Window* getSDLWindow() const { return m_SDLWindow; }
+
+        inline int getMonitoRefreshRate() const { return m_Display[0].refresh_rate; }
+
+        inline int getScreenWidth() const { return m_Width; }
+
+        inline int getScreenHeight() const { return m_Height; }
+
+        inline GameState getGameState() { return m_GameState; }
+
+        inline int getMaxPhysicSteps() { return m_MaxPhysicSteps; }
+
+        inline float getFixedDeltaTime() const { return m_FixedDeltaTime; }
+
+
+        inline void setGameState(GameState gameState) { m_GameState = gameState; }
+
+        inline void setShowFPS(bool value) { m_ShowFPS = value; }
+
+#pragma endregion SET&GET
+
+       
     };
 }
 

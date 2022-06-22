@@ -1,15 +1,8 @@
 #pragma once
-#include <map>
-#include "Texture.h"
+
+#include "CoreMinimal.h"
 
 namespace Engine {
-
-    enum fileExtension {
-        PNG,
-        JPG,
-        PBM,
-        SDL_IMAGE
-    };
 
     class TextureCache
     {

@@ -10,6 +10,7 @@ namespace Engine {
 
     public:
         
+        virtual ~Game() {};
         virtual void init() = 0;
         virtual void update() = 0;
         virtual void quitGame() = 0;

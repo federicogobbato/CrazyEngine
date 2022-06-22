@@ -1,6 +1,6 @@
 #pragma once
 
-#include <Engine\GameObject.h>
+#include <Engine\CoreMinimal.h>
 #include <Engine\Pool.h>
 #include <Engine\Cube.h>
 

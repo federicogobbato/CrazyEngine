@@ -1,11 +1,7 @@
 #include "Texture.h"
 
-#include <vector>
-////#include <SOIL.h>
-#include <fstream>
-
 #include "picoPNG.h"
-#include "ExtraFunctions.h"
+////#include <SOIL.h>
 
 namespace Engine {
 

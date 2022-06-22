@@ -1,14 +1,8 @@
 #pragma once
 
-#include <glm.hpp>
-#include <vector>
-#include <map>
-
-#include "GLSLProgram.h"
+#include "CoreMinimal.h"
 
 namespace Engine {
-
-    class GameObject;
 
     class GOmanager
     {
@@ -35,7 +29,7 @@ namespace Engine {
 
         void removeGameObject(GameObject * gameObject);
 
-        void drawGameObjects(Engine::GLSLProgram* shader);
+        void drawGameObjects(GLSLProgram* shader);
     };
 
 }

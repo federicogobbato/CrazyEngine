@@ -1,13 +1,6 @@
 
 #include "ExtraFunctions.h"
 
-#include <iostream>
-#include <fstream>
-
-#include <SDL.h>
-#include <glew.h>
-
-#include "Window.h"
 
 namespace Engine {
 
@@ -27,8 +20,6 @@ namespace Engine {
     {
         std::cout << errorString << std::endl;
         system("PAUSE");
-        Game::GetSingleton()->quitGame();
-        Window::GetSingleton()->quitSystem();
         exit(1);
     }
 
@@ -60,7 +51,7 @@ namespace Engine {
         return true;
     }
 
-    //float calculateFPS(float prevTicks)
+    //float startCalculateFPS(float prevTicks)
     //{
     //    static const int NUM_SAMPLES = 10;
     //    static float frameTimes[NUM_SAMPLES];

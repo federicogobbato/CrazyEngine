@@ -148,8 +148,10 @@
     <ClInclude Include="Camera2D.h" />
     <ClInclude Include="Camera3D.h" />
     <ClInclude Include="Collider2D.h" />
+    <ClInclude Include="CoreMinimal.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="ExtraFunctions.h" />
+    <ClInclude Include="ForwardDeclarations.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObject2D.h" />
@@ -164,6 +166,7 @@
     <ClInclude Include="SpriteBatch.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureCache.h" />
+    <ClInclude Include="Enums.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowOPENGL.h" />

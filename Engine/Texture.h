@@ -1,7 +1,6 @@
 #pragma once
 
-#include <string>
-#include <glew.h>
+#include "CoreMinimal.h"
 
 namespace Engine {
 
@@ -13,6 +12,7 @@ namespace Engine {
         int m_Height;
 
         virtual void loadTexture(const std::string& texturePath) = 0;
+
     public:
 
         GLuint getID() const {

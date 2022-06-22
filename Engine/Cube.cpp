@@ -1,6 +1,7 @@
 
 #include "Cube.h"
 
+
 namespace Engine {
 
     Cube::Cube(Texture* texture) : m_VBO(0), m_VAO(0), m_EBO(0)
@@ -13,85 +14,85 @@ namespace Engine {
     {
     }
 
-    void Cube::Init(Engine::GLSLProgram* shaderProgram, float x, float y, float z)
+    void Cube::Init(GLSLProgram* shaderProgram, float x, float y, float z)
     {
         m_MaxSize.x = x;
         m_MaxSize.y = y;
         m_MaxSize.z = z;
 
-        m_Vertices[0].x = -x;
-        m_Vertices[0].y = -y;
-        m_Vertices[0].z = -z;
+        m_Vertices[0].pos.x = -x;
+        m_Vertices[0].pos.y = -y;
+        m_Vertices[0].pos.z = -z;
         m_Vertices[0].uv.x = 1;
         m_Vertices[0].uv.y = 0;
 
-        m_Vertices[1].x = x;
-        m_Vertices[1].y = -y;
-        m_Vertices[1].z = -z;
+        m_Vertices[1].pos.x = x;
+        m_Vertices[1].pos.y = -y;
+        m_Vertices[1].pos.z = -z;
         m_Vertices[1].uv.x = 0;
         m_Vertices[1].uv.y = 0;
 
-        m_Vertices[2].x = -x;
-        m_Vertices[2].y = y;
-        m_Vertices[2].z = -z;
+        m_Vertices[2].pos.x = -x;
+        m_Vertices[2].pos.y = y;
+        m_Vertices[2].pos.z = -z;
         m_Vertices[2].uv.x = 1;
         m_Vertices[2].uv.y = 1;
 
-        m_Vertices[3].x = x;
-        m_Vertices[3].y = y;
-        m_Vertices[3].z = -z;
+        m_Vertices[3].pos.x = x;
+        m_Vertices[3].pos.y = y;
+        m_Vertices[3].pos.z = -z;
         m_Vertices[3].uv.x = 0;
         m_Vertices[3].uv.y = 1;
 
-        m_Vertices[4].x = -x;
-        m_Vertices[4].y = -y;
-        m_Vertices[4].z = z;
+        m_Vertices[4].pos.x = -x;
+        m_Vertices[4].pos.y = -y;
+        m_Vertices[4].pos.z = z;
         m_Vertices[4].uv.x = 0;
         m_Vertices[4].uv.y = 0;
 
-        m_Vertices[5].x = x;
-        m_Vertices[5].y = -y;
-        m_Vertices[5].z = z;
+        m_Vertices[5].pos.x = x;
+        m_Vertices[5].pos.y = -y;
+        m_Vertices[5].pos.z = z;
         m_Vertices[5].uv.x = 1;
         m_Vertices[5].uv.y = 0;
 
-        m_Vertices[6].x = -x;
-        m_Vertices[6].y = y;
-        m_Vertices[6].z = z;
+        m_Vertices[6].pos.x = -x;
+        m_Vertices[6].pos.y = y;
+        m_Vertices[6].pos.z = z;
         m_Vertices[6].uv.x = 0;
         m_Vertices[6].uv.y = 1;
 
-        m_Vertices[7].x = x;
-        m_Vertices[7].y = y;
-        m_Vertices[7].z = z;
+        m_Vertices[7].pos.x = x;
+        m_Vertices[7].pos.y = y;
+        m_Vertices[7].pos.z = z;
         m_Vertices[7].uv.x = 1;
         m_Vertices[7].uv.y = 1;
 
         // Vertex 0'
-        m_Vertices[8].x = -x;
-        m_Vertices[8].y = -y;
-        m_Vertices[8].z = -z;
+        m_Vertices[8].pos.x = -x;
+        m_Vertices[8].pos.y = -y;
+        m_Vertices[8].pos.z = -z;
         m_Vertices[8].uv.x = 0;
         m_Vertices[8].uv.y = 1;
 
         // Vertex 1'
-        m_Vertices[9].x = x;
-        m_Vertices[9].y = -y;
-        m_Vertices[9].z = -z;
+        m_Vertices[9].pos.x = x;
+        m_Vertices[9].pos.y = -y;
+        m_Vertices[9].pos.z = -z;
         m_Vertices[9].uv.x = 1;
         m_Vertices[9].uv.y = 1;
 
         // Vertex 2'
-        m_Vertices[10].x = -x;
-        m_Vertices[10].y = y;
-        m_Vertices[10].z = -z;
+        m_Vertices[10].pos.x = -x;
+        m_Vertices[10].pos.y = y;
+        m_Vertices[10].pos.z = -z;
         m_Vertices[10].uv.x = 0;
         m_Vertices[10].uv.y = 0;
 
         // Vertex 3'
-        m_Vertices[11].x = x;
-        m_Vertices[11].y = y;
-        m_Vertices[11].z = -z;
+        m_Vertices[11].pos.x = x;
+        m_Vertices[11].pos.y = y;
+        m_Vertices[11].pos.z = -z;
         m_Vertices[11].uv.x = 1;
         m_Vertices[11].uv.y = 0;
 
@@ -152,8 +153,8 @@ namespace Engine {
         //The second parameter specifies the number of values for that input, which is the same as the number of components of the vec.
         //The third parameter specifies the type of each component and the fourth parameter specifies whether the input values should be normalized between - 1.0 and 1.0 (or 0.0 and 1.0 depending on the format) if they aren't floating point numbers.
         //The last two parameters are arguably the most important here as they specify how the attribute is laid out in the vertex array.
-        //The first number specifies the stride, or how many bytes are between each position attribute in the array.
-        //The value 0 means that there is no data in between.This is currently the case as the position of each vertex is immediately followed by the position of the next vertex.
+        //The first number specifies the stride, or how many bytes are between each pos attribute in the array.
+        //The value 0 means that there is no data in between.This is currently the case as the pos of each vertex is immediately followed by the pos of the next vertex.
         //The last parameter specifies the offset, or how many bytes from the start of the array the attribute occurs.
         //Since there are no other attributes, this is 0 as well.
         glVertexAttribPointer(vertPos, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex3D), 0);

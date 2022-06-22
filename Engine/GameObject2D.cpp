@@ -1,6 +1,5 @@
 #include "GameObject2D.h"
 
-#include "TextureCache.h"
 
 namespace Engine {
 

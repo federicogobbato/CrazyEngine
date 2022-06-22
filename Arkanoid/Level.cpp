@@ -1,11 +1,10 @@
 #include "Level.h"
 
-#include <iostream>
-#include <fstream>
-
-#include <Engine\ExtraFunctions.h>
-#include <Engine\Game.h>
 #include "Arkanoid.h"
+#include "ActorGame.h"
+#include "PlayerArk.h"
+#include "Ball.h"
+
 
 Level::Level() :
     m_BackGroud(nullptr),
@@ -144,7 +143,7 @@ void Level::updateLevel(float deltaTime)
             break;
         case WINNER:
             m_LevelState = PAUSE_LEVEL;
-            Engine::WindowOPENGL::GetSingleton()->setGameState(Engine::GameState::NEXT_LEVEL);
+            Engine::WindowOPENGL::getSingleton()->setGameState(Engine::GameState::NEXT_LEVEL);
             break;
     }
 }

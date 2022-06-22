@@ -1,7 +1,6 @@
 #pragma once
 
-#include <vector>
-#include <iostream>
+#include "CoreMinimal.h"
 
 namespace Engine {
 
@@ -69,7 +68,8 @@ namespace Engine {
 
 
 	template <class Object>
-	void Pool<Object>::addElement(Object* newObject) {
+	void Pool<Object>::addElement(Object* newObject) 
+	{
 		PoolObject<Object>* newElement = new PoolObject<Object>;
 		newElement->Element = newObject;
 		if (m_NextFreeElement == nullptr) {
@@ -87,7 +87,8 @@ namespace Engine {
 
 
 	template <class Object>
-	PoolObject<Object>* Pool<Object>::getElement() {
+	PoolObject<Object>* Pool<Object>::getElement() 
+	{
 		if (m_NextFreeElement != nullptr) {
 			PoolObject<Object>* element = m_NextFreeElement;
 			m_NextFreeElement = m_NextFreeElement->NextElement;
@@ -98,7 +99,8 @@ namespace Engine {
 	};
 
 	template <class Object>
-	void Pool<Object>::returnElement(PoolObject<Object>* element) {
+	void Pool<Object>::returnElement(PoolObject<Object>* element) 
+	{
 		element->state = true;
 		PoolObject<Object>* prevNextElement = m_NextFreeElement;
 		m_NextFreeElement = element;

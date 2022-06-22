@@ -5,6 +5,7 @@
 #include <gtc/type_ptr.hpp>
 
 #include "GOmanager.h"
+#include "Cube.h"
 
 namespace Engine {
 
@@ -28,7 +29,7 @@ namespace Engine {
         m_ID = GOmanager::getManager()->addGameObject(this);
     }
 
-    void GameObject::draw(Engine::GLSLProgram* shader)
+    void GameObject::draw(GLSLProgram* shader)
     {
         if (m_Mesh != nullptr) {
             m_Mesh->drawMesh();

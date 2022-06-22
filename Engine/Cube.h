@@ -1,9 +1,6 @@
 #pragma once
 
-#include "Vertex.h"
-#include "GLSLProgram.h"
-#include "Texture.h"
-#include <glm.hpp>
+#include "CoreMinimal.h"
 
 namespace Engine {
 
@@ -18,9 +15,10 @@ namespace Engine {
         glm::vec3 m_MaxSize;
 
     public:
+
         Cube(Texture* texture);
         ~Cube();
-        void Init(Engine::GLSLProgram * shaderProgram, float x = 0.5f, float y = 0.5f, float z = 0.5f);
+        void Init(GLSLProgram * shaderProgram, float x = 0.5f, float y = 0.5f, float z = 0.5f);
         void draw();
 
         glm::vec3 getMaxSize() {

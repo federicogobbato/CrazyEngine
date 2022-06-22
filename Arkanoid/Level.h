@@ -1,17 +1,6 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include <glm.hpp>
-
-
-#include <Engine\SpriteBatch.h>
-#include <Engine\InputManager.h>
-#include <Engine\Collider2D.h>
-
-#include "ActorGame.h"
-#include "PlayerArk.h"
-#include "Ball.h"
+#include <Engine\CoreMinimal.h>
 
 
 enum LevelState {
@@ -51,12 +40,12 @@ private:
 
     std::vector<std::string> m_LevelMap;
     Engine::GameObject2D *m_BackGroud;
-    std::vector<ActorGame*> m_FrameElements;
-    std::vector<ActorGame> m_BricksInGame;  // Bricks updated at runtime
-    std::vector<ActorGame*> m_Bricks;       // Sample Bricks   
+    std::vector<class ActorGame*> m_FrameElements;
+    std::vector<class ActorGame> m_BricksInGame;  // Bricks updated at runtime
+    std::vector<class ActorGame*> m_Bricks;       // Sample Bricks   
     
-    PlayerArk* m_Player;
-    Ball* m_Ball;
+    class PlayerArk* m_Player;
+    class Ball* m_Ball;
 
     float m_PlayerSpeed;
     float m_BallSpeed;

@@ -1,14 +1,7 @@
 #pragma once
 
-#include <Engine\TSingleton.h>
-#include <Engine\Window.h>
-#include <Engine\Game.h>
-#include <Engine\GLSLProgram.h>
-#include <Engine\Camera3D.h>
-#include <Engine\Mesh.h>
-#include <Engine\TextureCache.h>
+#include <Engine\CoreMinimal.h>
 #include <Engine\Cube.h>
-#include <Engine\Pool.h>
 
 #include "Player.h"
 

@@ -1,7 +1,7 @@
-#pragma once
 
+#pragma once
+#include "CoreMinimal.h"
 #include <unordered_map>
-#include <glm.hpp>
 
 namespace Engine {
 

@@ -18,7 +18,7 @@ namespace Engine {
             m_istance = static_cast <T*> (this);
         }
 
-        static T* GetSingleton()
+        static T* getSingleton()
         {
             if (m_istance != nullptr) {
                 return m_istance;
@@ -35,6 +35,24 @@ namespace Engine {
 
     template <typename T> T* TSingleton <T>::m_istance = 0;
 
+
+    //template <class T> class TSingleton
+    //{
+    //    TSingleton() noexcept = default;
+    //    TSingleton(const TSingleton<T>& copy) = delete;
+    //    TSingleton<T>& operator=(const TSingleton<T>& copy) = delete;
+
+    //public:
+
+    //    static T* getSingleton() noexcept(std::is_nothrow_constructible<T>::value)
+    //    {
+    //        // Guaranteed to be destroyed.
+    //        // Instantiated on first use.
+    //        // Thread safe in C++11
+    //        static T instance;
+    //        return &instance;
+    //    }
+    //};
 }
 
 

@@ -1,11 +1,6 @@
 #include "Sprite.h"
 
-#include "Vertex.h"
-#include <string>
-#include <fstream>
-#include <iostream>
 #include <time.h>
-#include <SOIL.h>
 
 namespace Engine {
 
@@ -43,7 +38,7 @@ namespace Engine {
     {
     }
 
-    void Sprite::Init(Engine::GLSLProgram* shaderProgram)
+    void Sprite::Init(GLSLProgram* shaderProgram)
     {
         if (m_VAO == 0) {
             glGenVertexArrays(1, &m_VAO);
@@ -107,7 +102,7 @@ namespace Engine {
         glBindVertexArray(0);
     }
 
-    void Sprite::draw(Engine::GLSLProgram* shaderProgram, float time)
+    void Sprite::draw(GLSLProgram* shaderProgram, float time)
     {
         glBindVertexArray(m_VAO);
 
@@ -128,7 +123,7 @@ namespace Engine {
         glBindVertexArray(0);
     }
 
-    void Sprite::alternateSprites(Engine::GLSLProgram* shaderProgram, float time)
+    void Sprite::alternateSprites(GLSLProgram* shaderProgram, float time)
     {
         GLuint weight = shaderProgram->getUniformLocation("weight");
         glUniform1f(weight, time);

@@ -1,7 +1,5 @@
 #pragma once
 
-#include <glm.hpp>
-
 #include "ActorGame.h"
 
 class Ball : public ActorGame

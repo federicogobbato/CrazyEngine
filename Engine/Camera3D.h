@@ -1,8 +1,7 @@
 #pragma once
 
-#include <glm.hpp>
+#include "CoreMinimal.h"
 
-#include "GLSLProgram.h"
 
 namespace Engine {
 
@@ -28,7 +27,7 @@ namespace Engine {
             m_NeedUpdate = true;
         }
 
-        void setScale(int scale) {
+        void setScale(float scale) {
             m_Scale = scale;
             m_NeedUpdate = true;
         }

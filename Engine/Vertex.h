@@ -1,15 +1,13 @@
 #pragma once
 
-#include <glew.h>
+#include "CoreMinimal.h"
 
 namespace Engine {
 
-    struct Color {
-        int r;
-        int g;
-        int b;
-
-        Color() : r(1), g(1), b(1) {}
+    struct Position2D
+    {
+        float x;
+        float y;
     };
 
     struct ColorRGBA8
@@ -22,32 +20,26 @@ namespace Engine {
         GLubyte g;
         GLubyte b;
         GLubyte a;
-    };
 
-    static ColorRGBA8 defaultColor()
-    {
-        ColorRGBA8 color;
-        color.r = 255;
-        color.g = 255;
-        color.b = 255;
-        color.a = 255;
-        return color;
-    }
+        static ColorRGBA8 defaultColor()
+        {
+            ColorRGBA8 color;
+            color.r = 255;
+            color.g = 255;
+            color.b = 255;
+            color.a = 255;
+            return color;
+        }
+    };
 
     struct UV {
         float x;
         float y;
     };
 
-    struct Position
+    struct Vertex 
     {
-        float x;
-        float y;
-    };
-
-    struct Vertex {
-
-        Position position;
+        Position2D position;
         ColorRGBA8 color;
         UV uv;
 
@@ -72,14 +64,17 @@ namespace Engine {
         }
     };
 
-    struct Vertex3D {
-        float x;
-        float y;
-        float z;
-
-        Color color;
-
-        UV uv;
+    struct Vertex3D 
+    {
+        glm::vec3 pos;
+        glm::vec3 norm;
+        glm::vec2 uv;
     };
 
+    struct Triangle {
+        int i, j, k;
+
+        Triangle() : i(0), j(0), k(0) {};
+        Triangle(int _i, int _j, int _k) :i(_i), j(_j), k(_k) {}
+    };
 }

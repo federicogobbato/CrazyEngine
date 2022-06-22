@@ -1,15 +1,11 @@
 #pragma once
 
-#include "Mesh.h"
-#include "Texture.h"
-#include "GLSLProgram.h"
-#include "Cube.h"
+#include "CoreMinimal.h"
 
-#include <glm.hpp>
- 
 namespace Engine {
 
-    enum GameObjectState {
+    enum GameObjectShape 
+    {
         CUBE, MESH
     };
 
@@ -19,8 +15,7 @@ namespace Engine {
     protected:
 
         Mesh* m_Mesh;
-
-        Cube* m_Cube;
+        class Cube* m_Cube;
 
         glm::mat4 m_ModelMatrix;
         glm::mat4 m_TranslationMatrix;
@@ -110,12 +105,12 @@ namespace Engine {
 
         void move(glm::vec3 position);
 
-        void draw(Engine::GLSLProgram* shader);
+        void draw(GLSLProgram* shader);
 
         bool checkCollision(GameObject* object);
 
         GameObject(Mesh * mesh);
-        GameObject(Cube * cube);
+        GameObject(class Cube * cube);
         ~GameObject();
     };
 

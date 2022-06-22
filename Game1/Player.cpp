@@ -1,7 +1,5 @@
 #include "Player.h"
 
-#include <SDL.h>
-#include <Engine\InputManager.h>
 #include <Engine\WindowOPENGL.h>
 
 using namespace Engine;
@@ -9,16 +7,16 @@ using namespace Engine;
 void Player::inputCheck()
 {
 	if (InputManager::getInpuManager()->isKeyDown(SDLK_a)) {
-		GameObject::move(glm::vec3(-1.0f, 0.0f, 0.0f) * Engine::WindowOPENGL::GetSingleton()->getFixedDeltaTime() * 0.01f);
+		GameObject::move(glm::vec3(-1.0f, 0.0f, 0.0f) * Engine::WindowOPENGL::getSingleton()->getFixedDeltaTime() * 0.01f);
 		if (GameObject::getTempRotation().z < 20) {
-			GameObject::setTempRotation(glm::vec3(0.0f, 0.0f, 1.0f), 90.0f * Engine::WindowOPENGL::GetSingleton()->getFixedDeltaTime() * 0.01f);
+			GameObject::setTempRotation(glm::vec3(0.0f, 0.0f, 1.0f), 90.0f * Engine::WindowOPENGL::getSingleton()->getFixedDeltaTime() * 0.01f);
 		}
 	}
 	else {
 		if (InputManager::getInpuManager()->isKeyDown(SDLK_d)) {
-			GameObject::move(glm::vec3(1.0f, 0.0f, 0.0f) * Engine::WindowOPENGL::GetSingleton()->getFixedDeltaTime() * 0.01f);
+			GameObject::move(glm::vec3(1.0f, 0.0f, 0.0f) * Engine::WindowOPENGL::getSingleton()->getFixedDeltaTime() * 0.01f);
 			if (GameObject::getTempRotation().z > -20) {
-				GameObject::setTempRotation(glm::vec3(0.0f, 0.0f, 1.0f), -90.0f * Engine::WindowOPENGL::GetSingleton()->getFixedDeltaTime() * 0.01f);
+				GameObject::setTempRotation(glm::vec3(0.0f, 0.0f, 1.0f), -90.0f * Engine::WindowOPENGL::getSingleton()->getFixedDeltaTime() * 0.01f);
 			}		
 		}
 		else {
@@ -79,7 +77,7 @@ void Player::updateBullets()
 	for (int i =0 ; i < m_ActiveBullets.size(); i++)
 	{
 		m_ActiveBullets[i]->getElement()->move(glm::vec3(0.0f, 0.0f, -1.0f) 
-												* Engine::WindowOPENGL::GetSingleton()->getFixedDeltaTime() * 0.05f );
+												* Engine::WindowOPENGL::getSingleton()->getFixedDeltaTime() * 0.05f );
 		glm::vec3 position = m_ActiveBullets[i]->getElement()->getPosition();
 		if (position.z <= -6)
 		{
