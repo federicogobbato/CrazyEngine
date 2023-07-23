@@ -98,8 +98,8 @@ namespace Engine {
 
                 // Obj indices start from 1 not 0!
                 --i0; --j0; --k0;
-                i1--; j1--; k1--;
-                i2--; j2--; k2--;
+                --i1; --j1; --k1;
+                --i2; --j2; --k2;
 
                 // Save the position and normal of every vertex
                 m_Vertices[i1].pos = tmpV[i0];

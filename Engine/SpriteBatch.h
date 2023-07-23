@@ -73,7 +73,7 @@ namespace Engine {
         void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
         void end();
 
-        // Adds a glyph to the spritebatch
+        // Adds a glyph to the m_Glyphs of the spritebatch
         void draw (const glm::vec2& position, const glm::vec2& size,
             const glm::vec2& UV, const glm::vec2& UVsize, const GLuint& texture, const float& depth, const ColorRGBA8 & color);
 
