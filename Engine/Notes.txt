@@ -1,0 +1,5 @@
+1. GOmanager should manage 2D objects as well
+2. Add 2D animation
+3. Add 3D animation
+4. Try to integrate physic engine
+5. 

@@ -15,7 +15,7 @@ namespace Engine {
 
     void Texture::loadData(const std::string& texturePath) {
 
-        // (WE don't draw a texture. WE map or apply a texture on a primitive)
+        // (We don't draw a texture. We map or apply a texture on a primitive)
         // Generate the OpenGL texture object
         glGenTextures(1, &m_ID);
         // Bind the texture object
@@ -38,12 +38,10 @@ namespace Engine {
         glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    ////void TextureJPG::loadTexture(const std::string & texturePath)
-    ////{
-    ////    unsigned char* image = SOIL_load_image(&texturePath[0], &m_Width, &m_Height, 0, SOIL_LOAD_RGB);
-    ////    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, m_Width, m_Height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-    ////    SOIL_free_image_data(image);
-    ////}
+    void TextureJPG::loadTexture(const std::string & texturePath)
+    {
+        fatalError("jpg not supported at the moment");
+    }
 
     void TexturePNG::loadTexture(const std::string& texturePath) {
 

@@ -34,8 +34,8 @@ namespace Engine {
         virtual void loadTexture(const std::string& texturePath);
     };
 
-    ////class TextureJPG : public Texture {
-    ////    virtual void loadTexture(const std::string& texturePath);
-    ////};
+    class TextureJPG : public Texture {
+        virtual void loadTexture(const std::string& texturePath);
+    };
 
 }

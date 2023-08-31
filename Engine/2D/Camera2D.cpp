@@ -42,7 +42,7 @@ namespace Engine {
         }
     }
 
-    glm::vec2 Camera2D::convertScreenToWorld(glm::vec2 screenCoords)
+    void Camera2D::convertScreenToWorld(glm::vec2& screenCoords)
     {
         //Invert y direction
         screenCoords.y = m_ScreenHeight - screenCoords.y;
@@ -52,7 +52,6 @@ namespace Engine {
         screenCoords /= m_Scale;
         //Translate with the camera position;
         screenCoords += m_Position;
-        return screenCoords;
     }
 
     bool Camera2D::isBoxInView(const glm::vec2& position, const glm::vec2& dimensions) {

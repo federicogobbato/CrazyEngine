@@ -45,8 +45,6 @@ namespace Engine {
                 case JPG:
                     fatalError("jpg not supported at the moment");
                     break;
-                    ////    newTexture = new TextureJPG;
-                    ////    break;
                 case PBM:
                     newTexture = new TexturePBM;
                     break;
@@ -61,7 +59,7 @@ namespace Engine {
                 return newTexture;
             }
             else {
-                std::cout << texturePath << "  texture not loaded" << std::endl;
+                std::cout << texturePath << "  texture not found" << std::endl;
                 return nullptr;
             }
         }

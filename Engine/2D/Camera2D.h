@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CoreMinimal.h"
+#include "../CoreMinimal.h"
 
 namespace Engine {
 
@@ -14,7 +14,7 @@ namespace Engine {
 
         void update();
 
-        glm::vec2 convertScreenToWorld(glm::vec2 screenCoords);
+        void convertScreenToWorld(glm::vec2& screenCoords);
 
         bool isBoxInView(const glm::vec2& position, const glm::vec2& dimensions);
 

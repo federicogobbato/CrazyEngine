@@ -22,9 +22,9 @@
 
 #include "Vertex.h"
 #include "Texture.h"
-#include "Collider2D.h"
-#include "Sprite.h"
-#include "Mesh.h"
+#include "2D/Collider2D.h"
+#include "2D/Sprite.h"
+#include "3D/Mesh.h"
 
 #include "TSingleton.h"
 #include "Window.h"
@@ -37,10 +37,10 @@
 #include "SpriteBatch.h"
 
 #include "GOmanager.h"
-#include "GameObject.h"
-#include "GameObject2D.h"
-#include "Camera2D.h"
-#include "Camera3D.h"
+#include "3D/GameObject.h"
+#include "2D/GameObject2D.h"
+#include "2D/Camera2D.h"
+#include "3D/Camera3D.h"
 
 
 #endif

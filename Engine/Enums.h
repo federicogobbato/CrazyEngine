@@ -28,7 +28,8 @@ namespace Engine
         PNG,
         JPG,
         PBM,
-        SDL_IMAGE
+        SDL_IMAGE,
+        None
     };
 
 

@@ -10,7 +10,8 @@ namespace Engine {
         m_UVsize(1.0f, 1.0f),
         m_Color(color),
         m_Depth(float(depth)),
-        m_TexturePath(texturePath)
+        m_TexturePath(texturePath),
+        m_TextureFormat(fileExtension::None)
     {
         m_Texture = TextureCache::getTextureCache()->getTexture(texturePath, textureFormat);
     }
